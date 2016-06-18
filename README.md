@@ -1,6 +1,6 @@
-% Some Scripts For Vasp
-% Yuewen Mu
-% May. 14, 2016
+% Some Scripts by YW Mu  
+% Yuewen Mu  
+% May. 14, 2016  
 
 # Scripts4VASP
 
