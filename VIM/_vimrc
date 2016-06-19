@@ -1,0 +1,474 @@
+﻿set nocompatible  " 关闭 vi 兼容模式
+source $VIMRUNTIME/vimrc_example.vim
+source $VIMRUNTIME/mswin.vim
+behave mswin
+
+"=========================================================================
+" DesCRiption: 适合自己使用的vimrc文件，for Linux/Windows, GUI/Console
+"
+" Last Change: 2010年08月02日 15时13分 
+"
+" Version: 1.80
+"
+"=========================================================================
+"OS and GUI {
+let g:iswindows = 0
+let g:islinux = 0
+if(has("win32") || has("win64") || has("win95") || has("win16"))
+    let g:iswindows = 1
+else
+    let g:islinux = 1
+endif
+if has("gui_running")
+    let g:isGUI = 1
+else
+    let g:isGUI = 0
+endif
+"use: if g:islinux ...
+"}
+
+"backup and swapfile file{
+"set patchmode=.orig  "original file
+set backup   "backup enabled
+set backupcopy=yes " 设置备份时的行为为覆盖
+set noswapfile " no swap file
+if g:iswindows
+   set noundofile " no undofile for new version vim
+   let &backupext= '_'.strftime("%m%d%H").'.bak'  
+   set backupdir=D:\Temp\vimbk
+   set directory=D:\Temp\vimbk " for swap 
+   set makeprg=JustDoIt.bat\ % 
+else
+   let &backupext= '_'.strftime("%m%d").'.bak'  
+   set backupdir=~/.trash/vimbk
+   set directory=~/.trash/vimbk " for swap 
+endif
+""save before make
+set autowrite  
+"save when focus lost and insert mode when gain
+autocmd FocusLost * silent! up
+"autocmd FocusGained * set im!
+set  updatetime=5000  "wite swap to file when no typing in 10000 ms
+"}
+
+"gui setting{
+syntax on " 自动语法高亮
+let g:checksyntax_auto = 1 " 自动检查
+set shortmess=atl " To avoid hit to continue
+set cmdheight=2
+set history=300 
+set noconfirm "处理未保存或只读文件无确认
+set keymodel= "不使用“Shift + 方向键”选择文本
+nnoremap Q <nop> "不使用 Ex mode
+set selectmode= "不使用 selectmode
+"change Replace and Virtual Replace modes back to Insert mode
+imap <Insert> <Nop>
+inoremap <S-Insert> <Insert>
+set selection=inclusive "光标所在位置也属于被选中的范围
+set wildmenu "在命令模式下使用 Tab 自动补全的时候
+set wildignore=*.o,*~,*.pyc " Ignore compiled files
+set clipboard+=unnamed  "clipboard shared 
+set mousehide  " Hide the mouse cursor while typing
+set noshowcmd "no show cmd 
+set linespace=5  "行间距
+set showtabline=2  " show tabs
+set tabpagemax=20  " max tabs  
+if g:iswindows
+    set mouse=a  "mouse for all mode
+    set mousemodel=popup "right button for spell
+    autocmd GUIEnter * simalt ~x "自动最大化
+    set background=light
+    colorscheme solarized
+    set guioptions-=b
+    au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn} set filetype=markdown
+    autocmd BufNewFile,BufRead *.dat set filetype=dat
+    autocmd filetype dat setlocal guioptions+=b 
+    set guitablabel=[%N]%t%m
+    set lines=50 columns=100
+else
+	set mouse-=a
+endif
+set number " 显示行号
+set wrap "折行
+autocmd filetype *.dat setlocal nowrap "不折行
+set whichwrap=b,s "跨越行边界
+set nolinebreak  "非整词折行
+set showbreak=->
+set iskeyword+=_,$,@,%,#,-  "单词不分割
+set cursorline " 突出显示当前行
+set cursorcolumn " 突出显示当列
+highlight CursorColumn cterm=NONE ctermbg=darkred ctermfg=white guibg=darkred guifg=white
+set ruler " 打开状态栏标尺
+set smarttab
+set expandtab
+autocmd filetype Makefile set noexpandtab
+set shiftwidth=4 " 设定 << 和 >> 命令移动时的宽度为 4
+set softtabstop=4 " 使得按退格键时可以一次删掉 4 个空格
+set tabstop=4 " 设定 tab 长度为 4 
+set laststatus=2  " 显示状态栏 (默认值为 1, 无法显示状态栏)
+if g:iswindows
+   set noshowmode
+   highlight User1 guibg=black guifg=white 
+   highlight User2 guibg=black guifg=white
+   let g:vimmode="NORMAL"
+"set statusline=%1*\ <<<<\ %<[%N]%f%M%R%H%W\ >>>>\ %2*\ %=\ <<<<\ [%Y\ %{&fileformat}\ %{&encoding}]<<\ [Col:%c\ Row:%l/%L\ %p%%]<<\ @%{strftime(\"%H:%M:%S\")}\ >>>>\  
+   set statusline=%1*\ <<<<\ %<%{g:vimmode}%M%R%H%W\ >>>>\ %2*\ %=\ <<<<\ [%Y\ %{toupper(&fileformat)}\ %{toupper(&encoding)}]<<\ [Col:%c\ Row:%l/%L\ %p%%]<<\ @[%{strftime(\"%Y/%m/%d\ %H:%M:%S\")}]\ >>>>\  
+" 设置在状态行显示的信息
+   autocmd InsertEnter * highlight User1 guibg=red guifg=yellow
+   autocmd InsertEnter * let g:vimmode="INSERT"
+   autocmd InsertLeave * highlight User1 guibg=blue guifg=white
+   autocmd InsertLeave * let g:vimmode="VISUAL"
+   autocmd InsertChange * highlight User1 guibg=black guifg=white
+else
+   set scrolloff=3 " minimum lines to keep above and below cursor
+   set showmode
+   set statusline=\ <<<<\ %<[%N]%t%M%R%H%W\ >>>>\ \ %=\ <<<<\ [%Y\ %{toupper(&fileformat)}\ %{toupper(&encoding)}]<<\ [Col:%c\ Row:%l/%L\ %p%%]<<\ @[%{strftime(\"%Y/%m/%d\ %H:%M:%S\")}]\ >>>>\  
+endif
+"StatusLineNC: not current
+"highlight StatusLineNC  guibg=white guifg=blue 
+"}
+
+"spell check and grammer check {
+set nospell
+autocmd filetype tex setlocal spell " tex自动拼写检查
+autocmd filetype markdown setlocal spell " markdown自动拼写检查
+if g:iswindows
+    set spellfile=E:\Qsync\Refs4Mu\wordlist4gvim\en.utf-8.add "\ stands for space
+    autocmd BufWritePost *.{md,mkd,tex,latex} :silent !start cmd /c backrun.bat JustDoIt.bat %
+    let g:languagetool_jar='E:\soft\system\jab_latex\LanguageTool\languagetool-commandline.jar'
+endif	
+"}
+
+" reload after make{
+function! Makereload()
+ :sleep 1000m 
+ :e!
+ :syntax on
+endfunction
+"}
+
+"plugin, indent, stntax and fold {
+filetype on "侦测文件类型
+filetype plugin on " 开启插件
+filetype indent on "开启缩进
+set viminfo^=%  "" Remember info about open buffers on close
+set ignorecase smartcase " 搜索时忽略大小写，但在有一个或以上大写字母时仍保持对大小写敏感
+set wrapscan " 搜索到文件两端时重新搜索
+set noincsearch " 输入搜索内容时不即时显示搜索结果
+set hlsearch " 搜索时高亮显示被找到的文本
+set noerrorbells " 关闭错误信息响铃
+set novisualbell " 关闭使用可视响铃代替呼叫
+set t_vb= " 置空错误铃声的终端代码
+set showmatch " 插入括号时，短暂地跳转到匹配的对应括号
+set matchtime=5 " 短暂跳转到匹配括号的时间
+set magic " 设置魔术
+set hidden " 允许在有未保存的修改时切换缓冲区，此时的修改由 vim 负责保存
+set smartindent " 开启新行时使用智能自动缩进
+set pastetoggle=<C-p> "avoid paste indent, swith between paste and no paste
+set backspace=indent,eol,start " 不设定在插入状态无法用退格键和 Delete 键删除回车符
+set foldenable " 开始折叠
+set foldmethod=syntax " 设置语法折叠
+set foldcolumn=0 " 设置折叠区域的宽度
+setlocal foldlevel=1 " 设置折叠层数为
+"set foldminlines=10  "min lines to fold
+let fortran_fold=1 "fold for fortran
+let fortran_fold_multilinecomments=1
+"let fortran_fold_conditionals=1
+let fortran_free_source=1
+"let fortran_have_tabs=1
+let fortran_more_precise=1
+let fortran_do_enddo=1
+let g:tex_fold_enabled=0 "latex fold enabled 
+let g:tex_comment_nospell=1 "no spellcheck in commnets 
+"set foldclose=all " 设置为自动关闭折叠 
+nnoremap <space> @=((foldclosed(line('.')) < 0) ? 'zc' : 'zo')<CR>
+" 用空格键来开关折叠
+" }
+ 
+" 配置多语言环境及设置字体 以及中文支持{}
+if g:iswindows
+"set guifont=SimSun-ExtB:h12:cANSI
+set guifont=Bitstream_Vera_Sans_Mono:h12:cANSI
+endif
+if has("multi_byte")
+" UTF-8 编码
+  set encoding=utf-8
+  set termencoding=utf-8
+  set formatoptions+=mM
+  set fileencoding=utf-8
+  set fileencodings=ucs-bom,utf-8,gb2312,gbk,gb18030
+  if v:lang =~? '^\(zh\)\|\(ja\)\|\(ko\)'
+     set ambiwidth=double
+  endif
+  if g:iswindows
+     source $VIMRUNTIME/delmenu.vim
+     source $VIMRUNTIME/menu.vim
+     language messages zh_CN.utf-8
+  endif
+else
+  echoerr "Sorry, this version of (g)vim was not compiled with +multi_byte"
+endif
+"}
+
+" 自动切换目录为当前编辑文件所在目录
+autocmd BufRead,BufNewFile,BufEnter * cd %:p:h
+"netrw {
+"Toggles explorer buffer
+function! ToggleVExplorer()
+  if exists("t:expl_buf_num")
+    let expl_win_num = bufwinnr(t:expl_buf_num)
+    if expl_win_num != -1
+      let cur_win_nr = winnr()
+      exec expl_win_num . 'wincmd w'
+      close
+      exec cur_win_nr . 'wincmd w'
+      unlet t:expl_buf_num
+    else
+      unlet t:expl_buf_num
+    endif
+  else
+    exec '1wincmd w'
+    Vexplore
+    let t:expl_buf_num = bufnr("%")
+  endif
+endfunction
+"Set default width of explorer to make it appear like a sidebar. Also defaults to tree style.
+let g:netrw_liststyle=3 "tree view 
+let g:netrw_winsize=20 "absolute width
+let g:netrw_banner=0  " do not display info on the top of window
+let g:netrw_sort_sequence = '[\/]$,*' " directories on the top, files below
+let g:netrw_browse_split = 3 "use new buffer to open file
+"Lastly, set a key mapping for calling the function above
+nmap <silent> <C-n> :call ToggleVExplorer()<CR>
+imap <silent> <C-n> <C-s>:call ToggleVExplorer()<CR>
+"}
+
+"quickfix toogle {
+command -bang -nargs=? QFix call QFixToggle(<bang>0)
+function! QFixToggle(forced)
+  if exists("g:qfix_win") && a:forced == 0
+    cclose
+    unlet g:qfix_win
+  else
+    copen 10
+    let g:qfix_win = bufnr("$")
+  endif
+endfunction
+nmap <silent> <C-e> :QFix<CR>
+imap <silent> <C-e> <C-s>:QFix<CR>
+"}
+
+" shortcut to delete in the black hole register
+  nnoremap d "_d
+  vnoremap d "_d
+" shortcut to paste but keeping the current register
+  xnoremap p "_dP
+
+" windows 快捷键映射{
+if g:iswindows
+" paste,copy and cut
+  vmap <C-c> "+y  
+  vmap <C-v> "+p  
+  vmap <C-x> "+x  
+  nmap <C-w> :silent !start cmd /c backrun.bat JustDoIt.bat %<CR>
+  imap <C-w> <Esc><C-w>
+"save and exit insert
+  nmap <C-s> :silent! call Cite_clean(&filetype) <CR>
+  vmap <C-s> <Esc><C-s>gv
+  inoremap <C-s> <Esc>:silent! call Cite_clean(&filetype) <CR>
+"close tab
+  :map <C-q> :close <CR>   
+"select all and invert case
+  vmap <C-a> GVgg   
+  vmap <C-g> ~ 
+"undo and redo
+  vmap <C-z> u  
+  vmap <C-r> r
+"find , replace 
+  :map <C-h> :%s/
+  :map <C-f> /
+" 插入匹配括号
+  inoremap ( ()<LEFT>
+  inoremap [ []<LEFT>
+  inoremap { {}<LEFT>
+  inoremap < <><LEFT>
+  inoremap " ""<LEFT>
+  inoremap ' ''<LEFT>
+endif
+"}
+
+"convet image path to link for markdown{
+function! Img2link()
+"dir /s /a /b *.png
+"find $PWD -name *.png |sed "s#/drives/e#E:#g" |sed  "s#/#\\\#g"
+": %s/cwd/\= expand("%:p:h")/g
+: %s#\.png$#\.png "png"){width=20%}\r#g
+: %s#^E:#![${\\Delta}E=0eV$](E:#g
+: w!
+endfunction
+"}
+
+
+"clean citation for latex and pandoc-markdown {
+function! Cite_clean(ftype)
+if a:ftype == "tex"
+"for latex \\cite{}\\cite{}
+:  s/\\cite{\([^}]*\)}\\cite{\([^}]*\)}/\\cite{\1,\2}/g
+:  s/\\cite{\([^}]*\)}\\cite{\([^}]*\)}/\\cite{\1,\2}/g
+:  s/\\cite{\([^}]*\)}\\cite{\([^}]*\)}/\\cite{\1,\2}/g
+:  s/\\cite{\([^}]*\)} \\cite{\([^}]*\)}/\\cite{\1,\2}/g
+:  s/\\cite{\([^}]*\)} \\cite{\([^}]*\)}/\\cite{\1,\2}/g
+:  s/\\cite{\([^}]*\)} \\cite{\([^}]*\)}/\\cite{\1,\2}/g
+elseif a:ftype == "markdown"
+" cite from latex to pandc-markdown(citeproc works){
+:  s/\\cite{\([^}]*\)}/[@\1]/g 
+:  s/\]\[@/;@/g
+:  s/\] \[@/;@/g
+:  s/\]  \[@/;@/g
+:  s/\[@\([^],]*\),\([^]]*\)\]/[@\1;@\2]/g 
+:  s/\[@\([^],]*\),\([^]]*\)\]/[@\1;@\2]/g 
+:  s/\[@\([^],]*\),\([^]]*\)\]/[@\1;@\2]/g 
+:  s/\[@\([^],]*\),\([^]]*\)\]/[@\1;@\2]/g
+:  s/\[@\([^],]*\),\([^]]*\)\]/[@\1;@\2]/g
+"}
+elseif a:ftype == "origmarkdown"
+"cite for pandoc-markdown, (citeproc not work){
+:  s/\[@\([^]]*\)\]/\\cite{\1}/g 
+:  s/\\cite{\([^}]*\)}\\cite{\([^}]*\)}/\\cite{\1,\2}/g
+:  s/\\cite{\([^}]*\)}\\cite{\([^}]*\)}/\\cite{\1,\2}/g
+:  s/\\cite{\([^}]*\)}\\cite{\([^}]*\)}/\\cite{\1,\2}/g
+:  s/\\cite{\([^}]*\)} \\cite{\([^}]*\)}/\\cite{\1,\2}/g
+:  s/\\cite{\([^}]*\)} \\cite{\([^}]*\)}/\\cite{\1,\2}/g
+:  s/\\cite{\([^}]*\)} \\cite{\([^}]*\)}/\\cite{\1,\2}/g
+"}
+endif
+:  w!
+endfunction
+"}
+
+" for js and php {
+let b:javascript_fold=1 " 打开javascript折叠
+" 打开javascript对dom、html和css的支持
+let javascript_enable_domhtmlcss=1
+" 设置字典 ~/.vim/dict/文件的路径
+autocmd filetype javascript set dictionary=$VIMFILES/dict/javascript.dict
+autocmd filetype css set dictionary=$VIMFILES/dict/css.dict
+autocmd filetype php set dictionary=$VIMFILES/dict/php.dict
+"}
+
+" plugin - taglist.vim 查看函数列表，需要ctags程序{
+" Ctrl-T 打开隐藏taglist窗口
+"-----------------------------------------------------------------
+set tags=tags;
+set autochdir
+let Tlist_Ctags_Cmd = '"'.$VIMRUNTIME.'/ctags.exe"' " for windows 
+let Tlist_Show_One_File = 1 " 不同时显示多个文件的tag，只显示当前文件的
+let Tlist_Exit_OnlyWindow = 1 " 如果taglist窗口是最后一个窗口，则退出vim
+let Tlist_Use_Right_Window = 1 " 在右侧窗口中显示taglist窗口
+let Tlist_File_Fold_Auto_Close=1 " 自动折叠当前非编辑文件的方法列表
+let Tlist_Auto_Open = 1 "自动打开TagList的window 
+let Tlist_Auto_Update = 1
+let Tlist_Hightlight_Tag_On_BufEnter = 1
+let Tlist_Enable_Fold_Column = 0
+let Tlist_Process_File_Always = 1
+let Tlist_Display_Prototype = 0
+let Tlist_Compact_Format = 1
+nmap <silent><C-T> :TlistToggle<CR>
+imap <silent><C-T> <C-s>:TlistToggle<CR>
+"}
+
+set diffexpr=MyDiff()
+function MyDiff()
+  let opt = '-a --binary '
+  if &diffopt =~ 'icase' | let opt = opt . '-i ' | endif
+  if &diffopt =~ 'iwhite' | let opt = opt . '-b ' | endif
+  let arg1 = v:fname_in
+  if arg1 =~ ' ' | let arg1 = '"' . arg1 . '"' | endif
+  let arg2 = v:fname_new
+  if arg2 =~ ' ' | let arg2 = '"' . arg2 . '"' | endif
+  let arg3 = v:fname_out
+  if arg3 =~ ' ' | let arg3 = '"' . arg3 . '"' | endif
+  let eq = ''
+  if $VIMRUNTIME =~ ' '
+    if &sh =~ '\<cmd'
+      let cmd = '""' . $VIMRUNTIME . '\diff"'
+      let eq = '"'
+    else
+      let cmd = substitute($VIMRUNTIME, ' ', '" ', '') . '\diff"'
+    endif
+  else
+    let cmd = $VIMRUNTIME . '\diff'
+  endif
+  silent execute '!' . cmd . ' ' . opt . arg1 . ' ' . arg2 . ' > ' . arg3 . eq
+endfunction
+
+
+""""""""""""""""""""""""""""""
+" => Visual mode related
+""""""""""""""""""""""""""""""
+" Visual mode pressing * or # searches for the current selection
+" Super useful! From an idea by Michael Naumann
+vnoremap <silent> * :call VisualSelection('f')<CR>
+vnoremap <silent> # :call VisualSelection('b')<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => vimgrep searching and cope displaying
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" When you press gv you vimgrep after the selected text
+"vnoremap <silent> gv :call VisualSelection('gv')<CR>
+
+" Open vimgrep and put the cursor in the right position
+"map <leader>g :vimgrep // **/*.<left><left><left><left><left><left><left>
+
+" Vimgreps in the current file
+"map <leader><space> :vimgrep // <C-R>%<C-A><right><right><right><right><right><right><right><right><right>
+" When you press <leader>r you can search and replace the selected text
+"vnoremap <silent> <leader>r :call VisualSelection('replace')<CR>
+
+function! CmdLine(str)
+    exe "menu Foo.Bar :" . a:str
+    emenu Foo.Bar
+    unmenu Foo
+endfunction
+
+function! VisualSelection(direction) range
+    let l:saved_reg = @"
+    execute "normal! vgvy"
+
+    let l:pattern = escape(@", '\\/.*$^~[]')
+    let l:pattern = substitute(l:pattern, "\n$", "", "")
+
+    if a:direction == 'b'
+        execute "normal ?" . l:pattern . "^M"
+    elseif a:direction == 'gv'
+        call CmdLine("vimgrep " . '/'. l:pattern . '/' . ' **/*.')
+    elseif a:direction == 'replace'
+        call CmdLine("%s" . '/'. l:pattern . '/')
+    elseif a:direction == 'f'
+        execute "normal /" . l:pattern . "^M"
+    endif
+
+    let @/ = l:pattern
+    let @" = l:saved_reg
+endfunction
+
+" Don't close window, when deleting a buffer
+command! Bclose call <SID>BufcloseCloseIt()
+function! <SID>BufcloseCloseIt()
+   let l:currentBufNum = bufnr("%")
+   let l:alternateBufNum = bufnr("#")
+
+   if buflisted(l:alternateBufNum)
+     buffer #
+   else
+     bnext
+   endif
+
+   if bufnr("%") == l:currentBufNum
+     new
+   endif
+
+   if buflisted(l:currentBufNum)
+     execute("bdelete! ".l:currentBufNum)
+   endif
+endfunction
