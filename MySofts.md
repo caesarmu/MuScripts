@@ -1,6 +1,6 @@
-﻿% My Softwares 
-% Yuewen Mu  
-% Mar. 20, 2016  
+﻿% My Softwares   
+% Yuewen Mu    
+% Mar. 20, 2016    
 
 # Opensource or freemium softwares
 
