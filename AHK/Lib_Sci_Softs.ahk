@@ -46,7 +46,7 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
 #If WinActive("ahk_exe JabRef.exe")
   $^r::    ; push citation key to Notepad2
     Clipboard=
-    SendInput,^+K  ; copy  cite key
+    SendInput,^+K  ; copy cite key, close Ctrl+Shift+K in Bing Input first
     ClipWait, 2
     If WinExist(".tex ahk_exe Notepad2.exe") { ; for notepad2
        WinActivate, .tex ahk_exe Notepad2.exe
@@ -62,4 +62,6 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
        SendInput, [@%Clipboard%] 
     }   
   Return 
-#If
+  $^p:: SendInput, !e{Down 14}{Right}{Down}{Enter} ;set priority
+  $^g:: SendInput, ^!a^g ; close ctrl+alt+a shortcut in QQ first
+#If 

@@ -1,9 +1,10 @@
+; variables doshome and DriveName defined in main file 
+
 DetectHiddenWindows, On
 SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
-
 #If WinActive("ahk_exe explorer.exe")
   $^b::    ; open  115.24.3.201:1215
-    Run, E:\Qsync\Refs4Mu\Tasks\Tasks_self.html
+    Run, %DriveName%\Qsync\Refs4Mu\Tasks\Tasks_self.html
     WinWait, Tasks for Yuewen Mu
     Run, %USERPROFILE%\AppData\Local\360Chrome\Chrome\Application\360chrome.exe 115.24.3.201:1215
     WinWait, 115.24.3.201:1215
@@ -20,7 +21,7 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
     Run, "C:\Program Files (x86)\Accelrys\Materials Studio 8.0\bin\MatStudio.exe"
   Return    
   $^s::    ; run ssh MobaXterm
-    Run, E:\Softs\DoNotSync\MobaXterm\MobaXterm_Personal.exe
+    Run, %DriveName%\Datas\Softs\DoNotSync\MobaXterm\MobaXterm_Personal.exe
   Return 
 #If 
  

@@ -1,3 +1,5 @@
+; Variable DriveName defined in the main file
+
 DetectHiddenWindows, On
 SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
 
@@ -34,7 +36,7 @@ Return
 Soft:    ; run soft not used very often
   Gui,submit,nohide
   If (SChoice = "Soft") {
-      Run, E:\Softs,,max 
+      Run, %DriveName%\Datas\Softs,,max 
   } Else If (SChoice = "Clean") {
     If WinExist("Piriform CCleaner ahk_exe CCleaner64.exe") {
         WinActivate, Piriform CCleaner ahk_exe CCleaner64.exe
@@ -51,7 +53,7 @@ Soft:    ; run soft not used very often
     If WinExist("ahk_class wxWindowNR ahk_exe FreeFileSync_x64.exe") {
         WinActivate, ahk_class wxWindowNR ahk_exe FreeFileSync_x64.exe
       } Else { 
-        Run, E:\Softs\DoNotSync\FreeFileSync\FreeFileSync.exe
+        Run, %DriveName%\Datas\Softs\DoNotSync\FreeFileSync\FreeFileSync.exe
       }
   } Else If (SChoice = "Gview") {
     If WinExist("GaussView 5.0.9 ahk_exe gview.exe") {
@@ -63,7 +65,7 @@ Soft:    ; run soft not used very often
       If WinExist("Warcraft III ahk_class Warcraft III") {
         WinActivate, Warcraft III ahk_class Warcraft III
       } Else { 
-        Run, "E:\Softs\system\Warcraft III 1.24\Frozen Throne.exe"
+        Run, "%DriveName%\Datas\Softs\Warcraft III 1.24\Frozen Throne.exe"
       } 
   } Else If (SChoice = "QQ") {
     If WinExist("QQ ahk_exe QQ.exe") {
@@ -77,7 +79,7 @@ Soft:    ; run soft not used very often
     If WinExist("QuiteRSS.exe ahk_exe QuiteRSS.exe") {
         WinActivate, QuiteRSS.exe ahk_exe QuiteRSS.exe
       } Else {
-        Run, E:\Softs\compute\RSS\QuiteRSS-0.18.4\QuiteRSS.exe
+        Run, %DriveName%\Datas\Softs\DraftTools\RSS\QuiteRSS-0.18.4\QuiteRSS.exe
       }
     
   } Else If (SChoice = "EleTable") {
@@ -120,7 +122,7 @@ ButtonSSH:    ; run ssh MobaXterm
     If WinExist("ahk_class TMobaXtermForm") {
        WinActivate, ahk_class TMobaXtermForm
     } Else { 
-       Run, E:\Softs\DoNotSync\MobaXterm\MobaXterm_Personal.exe
+       Run, %DriveName%\Datas\Softs\DoNotSync\MobaXterm\MobaXterm_Personal.exe
     }
 Return 
 ButtonVeusz:    ; run plot soft Veusz

@@ -1,9 +1,7 @@
+;variables doshome, DriveName and Mutemp defined in main file
+
 DetectHiddenWindows, On
 SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
-; Global variables
-Global Mutemp
-Mutemp=D:\Temp\mutemp
- 
 #If WinActive("ahk_exe Notepad2.exe") ; for notepad2
   $^q::SendInput, !l  ; shortcut to Alt+L, open with...
   $^l::     ; set file to readonly in Notepad2 (lock)
@@ -138,5 +136,5 @@ Mutemp=D:\Temp\mutemp
     SendInput,`n{Home 2}:Table: New Table `n
   Return
   $^i:: SendInput,{!}{[}$\alpha${]}(%doshome%\models\logo.png "png"){{}width=50`%{}}
-  $^h:: Run, E:\Qsync\Refs4Mu\Tasks\Symbols4Tex_math.html
+  $^h:: Run, %DriveName%\Qsync\Refs4Mu\Tasks\Symbols4Tex_math.html
 #If
