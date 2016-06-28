@@ -9,12 +9,6 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
     Sleep, 10
     SendInput, {Down 6}{Enter}
   Return
-  $^w:: ;  generate rtf file 
-    SwitchIME(0x08040804) 
-    SendInput,  ^r   
-    WinWait, ahk_class #32770
-    SendInput, {Home}DoIt.bat{Space 2}{End}{Space 2}rtf{Enter}
-  Return 
   $^r:: ; add command and arguments to Ctrl+r in Notepad2, to replace pause 
     SwitchIME(0x08040804) 
     SendInput,  ^r   
@@ -55,6 +49,8 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
 ; add shortcuts of vim for Notepad2, use ! 
   $!Up:: SendInput, ^+{Up}{End} ; move the line up
   $!Down:: SendInput, ^+{Down}{Home} ; move the line Down
+  $!w:: SendInput, ^s ; save
+  $!s:: SendInput, ^s ; save
   $!m:: SendInput, ^b ; find match 
   $!u:: SendInput, ^z  ; undo 
   $!r:: SendInput, ^y  ; redo
