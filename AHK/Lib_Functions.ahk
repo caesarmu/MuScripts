@@ -13,17 +13,20 @@ SwitchIME(dwLayout){
 ;EnvGet, user, UserName
 ; user Administrator: 22inch, 1920*1080, pcscale=1, browserscale=1.25
 ; user Mu: 15inch, 1920*1080, pcscale=1, browserscale=1.25, two screen  
-ColorWait(carx1,cary1,RGBColor1,carx2,cary2,RGBColor2,carx3,cary3,RGBColor3){
-  Loop, 30 {  
-       PixelGetColor,VarColor1, carx1,cary1,RGB 
-       PixelGetColor,VarColor2, carx2,cary2,RGB 
-       PixelGetColor,VarColor3, carx3,cary3,RGB       
-       If (VarColor1 = "0x"RGBColor1 || VarColor2 = "0x"RGBColor2 || VarColor3 = "0x"RGBColor3) { 
+ColorWait(){
+; work with Pace4Chrome, modify its color to DD0000
+  Lstart :=false
+  Loop, 300 {  
+       PixelGetColor,VarColor, 1865,205,RGB    
+       If (VarColor = "0xDD0000" ) {
+           Lstart :=true 
+       }
+       If ( Lstart && VarColor <> "0xDD0000" ) {
             Lfound :=true
             Break
        } Else  { 
             Lfound :=false
-            Sleep, 100
+            Sleep, 10
        }          
   }
   SwitchIME(0x08040804)

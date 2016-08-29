@@ -5,8 +5,30 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
 
 Folder:    ; open Folders
   Gui,submit,nohide
-  ;Folder|Course|Current|Dosbin|Draft|Drag|LaTEX|Manual|Paper|Project|Report|Temp
-  Run, %doshome%\GoCWD.vbs %FChoice%
+  ;Folder|Course|Dosbin|Draft|Drag|Manual|Paper|Qsync|Report|Temp
+  If (FChoice = "Folder") {
+      Run, %DriveName%\Datas,,max 
+  } Else If (FChoice = "Course") {
+      Run, %DriveName%\Datas\Affairs\Courses\Mat_Simu_Desg\Simulate_Design.%A_YYYY%,,max
+  } Else If (FChoice = "Dosbin") {
+      Run, %doshome%,,max  
+  } Else If (FChoice = "Draft") {
+      Run, %doshome%\MyTasks\Drafts,,max
+  } Else If (FChoice = "Drag") {
+      Run, %DriveName%\Datas\Softs\DoNotSync\MobaXterm\MobaRoot\slash\tmp\dragdrop,,max
+  } Else If (FChoice = "Manual") {
+      Run, %DriveName%\Datas\Manuals,,max
+  } Else If (FChoice = "Paper") {
+      Run, %DriveName%\Datas\Papers,,max
+  } Else If (FChoice = "Project") {
+      Run, %DriveName%\Datas\Project,,max
+  } Else If (FChoice = "Qsync") {
+      Run, %DriveName%\Qsync,,max
+  } Else If (FChoice = "Report") {
+      Run, %DriveName%\Datas\Reports\SXU_%A_YYYY%,,max
+  } Else If (FChoice = "Temp") {
+      Run, %DriveName%\Temp\360chrome,,max
+  } 
   GuiControl, Choose, FChoice, 1  
 Return
 ButtonInkscape:    ; run Inkscape
@@ -36,13 +58,7 @@ Return
 Soft:    ; run soft not used very often
   Gui,submit,nohide
   If (SChoice = "Soft") {
-      Run, %DriveName%\Datas\Softs,,max 
-  } Else If (SChoice = "Clean") {
-    If WinExist("Piriform CCleaner ahk_exe CCleaner64.exe") {
-        WinActivate, Piriform CCleaner ahk_exe CCleaner64.exe
-      } Else { 
-        Run,"C:\Program Files\CCleaner\CCleaner64.exe"
-      } 
+        Run, "C:\Program Files (x86)\360\360Safe\SoftMgr\SoftMgr.exe" /start=desktop
   } Else If (SChoice = "CalCulator") { 
     If WinExist("SpeedCrunch ahk_exe speedcrunch.exe") { 
         WinActivate, SpeedCrunch ahk_exe speedcrunch.exe
@@ -107,12 +123,6 @@ Soft:    ; run soft not used very often
         WinActivate, Command panel ahk_exe v_sim.exe
       } Else { 
         Run, %doshome%\v_sim\bin\v_sim.exe
-      } 
-  } Else If (SChoice = "Wifi") {
-    If WinExist("360随身WiFi ahk_exe 360AP.exe") {
-        WinActivate, 360随身WiFi ahk_exe 360AP.exe
-      } Else { 
-        Run, "C:\Program Files (x86)\360\360AP\360AP.exe"
       } 
   }
   GuiControl, Choose, SChoice, 1
