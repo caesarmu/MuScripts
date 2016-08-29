@@ -1,5 +1,5 @@
 ﻿% My Softwares   
-% Yuewen Mu    
+% Yuewen Mu   
 % Mar. 20, 2016    
 
 # Opensource or freemium softwares
@@ -39,7 +39,7 @@
 *  QuiteRSS (Win/Mac/Linux, Portable)
 
 ## Programming/Scripting Language
-* Python (Win/Mac/Linux) +Java (Win/Mac/Linux) +AutoHotkey (Win/Mac/Linux) 
+* Python (Win/Mac/Linux) +Java (Win/Mac/Linux) +AutoHotkey (Win) 
 
 ## SSH  
 * To replace commercial Xmananger (Win, Free personal for Xshell+Xftp)
