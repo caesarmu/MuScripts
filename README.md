@@ -2,8 +2,5 @@
 % Yuewen Mu  
 % May. 14, 2016  
 
-# Scripts4VASP
+# MuScripts
 
-## some test
-
-### bwq new test
