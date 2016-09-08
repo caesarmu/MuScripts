@@ -13,7 +13,7 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
     SwitchIME(0x08040804) 
     SendInput,  ^r   
     WinWait, ahk_class #32770
-    SendInput, {Home}DoIt.bat{Space 2}{End}{Space 2}pause 
+    SendInput, {Home}DoIt.bat{Space 2}{End}{Space 2}self 
   Return 
   $^g:: ; grammer check one  line 
     WinGetTitle, nptitle, A
@@ -132,5 +132,5 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
     SendInput,`n{Home 2}:Table: New Table `n
   Return
   $^i:: SendInput,{!}{[}$\alpha${]}(%doshome%\models\logo.png "png"){{}width=50`%{}}
-  $^h:: Run, %doshome%\MyTasks\Symbols4Tex_math.html
+  $^h:: Run, %doshome%\Source\Notes\Symbols4Tex_math.html
 #If

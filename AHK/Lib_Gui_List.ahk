@@ -13,7 +13,7 @@ Folder:    ; open Folders
   } Else If (FChoice = "Dosbin") {
       Run, %doshome%,,max  
   } Else If (FChoice = "Draft") {
-      Run, %doshome%\MyTasks\Drafts,,max
+      Run, %doshome%\Source\Notes\Drafts,,max
   } Else If (FChoice = "Drag") {
       Run, %DriveName%\Datas\Softs\DoNotSync\MobaXterm\MobaRoot\slash\tmp\dragdrop,,max
   } Else If (FChoice = "Manual") {
@@ -82,6 +82,7 @@ Soft:    ; run soft not used very often
         WinActivate, Warcraft III ahk_class Warcraft III
       } Else { 
         Run, "%DriveName%\Datas\Softs\Warcraft III 1.24\Frozen Throne.exe"
+        Gui, Destroy
       } 
   } Else If (SChoice = "QQ") {
     If WinExist("QQ ahk_exe QQ.exe") {
@@ -91,13 +92,6 @@ Soft:    ; run soft not used very often
       } 
   } Else If (SChoice = "Qsync") {
     Run, "C:\Program Files (x86)\QNAP\Qsync\Qsync.exe" 
-  } Else If (SChoice = "RSS") {
-    If WinExist("QuiteRSS.exe ahk_exe QuiteRSS.exe") {
-        WinActivate, QuiteRSS.exe ahk_exe QuiteRSS.exe
-      } Else {
-        Run, %DriveName%\Datas\Softs\DraftTools\RSS\QuiteRSS-0.18.4\QuiteRSS.exe
-      }
-    
   } Else If (SChoice = "EleTable") {
     If WinExist("Periodic Table ahk_exe ADPT.exe") {
         WinActivate,Periodic Table ahk_exe ADPT.exe
@@ -124,6 +118,14 @@ Soft:    ; run soft not used very often
       } Else { 
         Run, %doshome%\v_sim\bin\v_sim.exe
       } 
+  } Else If (SChoice = "Wall") {
+        Run, %doshome%\Source\Notes\Wall.exe.lnk
+  } Else If (SChoice = "WeChat") {
+    If WinExist("ahk_exe WeChat.exe") {
+        WinActivate, ahk_exe WeChat.exe
+      } Else { 
+        Run, "C:\Program Files (x86)\Tencent\WeChat\WeChat.exe"
+      } 
   }
   GuiControl, Choose, SChoice, 1
 Return
@@ -146,6 +148,8 @@ Return
 Close:    ; Reboot, shutdown
   Gui,submit,nohide
   If (CChoice = "Close") {
+    SetTimer, CloseGui, off
+    SetTimer, OntopGui, off
     Gui, Destroy
   } Else If (CChoice = "Exit") {
     MsgBox,4,, Are your sure to Exit App?

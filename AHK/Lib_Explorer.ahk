@@ -5,7 +5,7 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
 #If WinActive("ahk_exe explorer.exe")
   $!q:: ExitApp  ; exit app
   $^b::    ; open  115.24.3.201:1215
-    Run, %doshome%\MyTasks\Tasks_self.html
+    Run, %doshome%\Source\Notes\Tasks_self.html
     WinWait, Tasks for Yuewen Mu
     Run, %USERPROFILE%\AppData\Local\360Chrome\Chrome\Application\360chrome.exe 115.24.3.201:1215
     WinWait, 115.24.3.201:1215

@@ -16,7 +16,7 @@ SwitchIME(dwLayout){
 ColorWait(){
 ; work with Pace4Chrome, modify its color to DD0000
   Lstart :=false
-  Loop, 300 {  
+  Loop, 500 {  
        PixelGetColor,VarColor, 1865,205,RGB    
        If (VarColor = "0xDD0000" ) {
            Lstart :=true 
@@ -54,3 +54,14 @@ DownListGet(maxn,keyword){
     }
     Return
 }
+
+EncryPass(inpass,charshift){
+  outpass :=""
+  Loop, Parse, inpass 
+  {
+        outchar :=Chr(Asc(A_LoopField)+charshift)
+        outpass :=outpass outchar
+  }
+  Return %outpass%
+}
+
