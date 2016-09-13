@@ -13,10 +13,10 @@ SwitchIME(dwLayout){
 ;EnvGet, user, UserName
 ; user Administrator: 22inch, 1920*1080, pcscale=1, browserscale=1.25
 ; user Mu: 15inch, 1920*1080, pcscale=1, browserscale=1.25, two screen  
-ColorWait(){
+ColorWait(cycle){
 ; work with Pace4Chrome, modify its color to DD0000
   Lstart :=false
-  Loop, 500 {  
+  Loop, %cycle% {  
        PixelGetColor,VarColor, 1865,205,RGB    
        If (VarColor = "0xDD0000" ) {
            Lstart :=true 
