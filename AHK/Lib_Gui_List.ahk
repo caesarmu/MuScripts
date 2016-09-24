@@ -8,6 +8,8 @@ Folder:    ; open Folders
   ;Folder|Course|Dosbin|Draft|Drag|Manual|Paper|Qsync|Report|Temp
   If (FChoice = "Folder") {
       Run, %DriveName%\Datas,,max 
+  } Else If (FChoice = "Affairs") {
+      Run, %DriveName%\Datas\Affairs,,max
   } Else If (FChoice = "Course") {
       Run, %DriveName%\Datas\Affairs\Courses\Mat_Simu_Desg\Simulate_Design.%A_YYYY%,,max
   } Else If (FChoice = "Dosbin") {
@@ -76,6 +78,12 @@ Soft:    ; run soft not used very often
         WinActivate, GaussView 5.0.9 ahk_exe gview.exe
       } Else { 
         Run, C:\G09W\gview.exe
+      }
+  } Else If (SChoice = "ICBC") {
+    If WinExist("ahk_exe ICBCEBankAssist.exe") {
+        WinActivate, ahk_exe ICBCEBankAssist.exe
+      } Else { 
+        Run, "C:\Program Files\ICBCEbankTools\ICBCSetupIntegration\ICBCEBankAssist.exe"
       }
   } Else If (SChoice = "Frozen") {
       If WinExist("Warcraft III ahk_class Warcraft III") {
