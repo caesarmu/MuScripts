@@ -17,7 +17,7 @@ ColorWait(cycle){
 ; work with Pace4Chrome, modify its color to DD0000
   Lstart :=false
   Loop, %cycle% {  
-       PixelGetColor,VarColor, 1865,205,RGB    
+       PixelGetColor,VarColor, 1865,208,RGB    
        If (VarColor = "0xDD0000" ) {
            Lstart :=true 
        }
@@ -32,6 +32,14 @@ ColorWait(cycle){
   SwitchIME(0x08040804)
   Sleep, 500 
   Return %Lfound%
+}
+
+PassSSL(){
+; pass the ssl check for IE
+     Sleep, 3000
+     SwitchIME(0x08040804)
+     Send, {Click 600,300}
+     SendInput, {Tab 2}{Enter}  
 }
 
 LastDir(){

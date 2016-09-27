@@ -60,12 +60,18 @@ Return
 Soft:    ; run soft not used very often
   Gui,submit,nohide
   If (SChoice = "Soft") {
-        Run, "C:\Program Files (x86)\360\360Safe\SoftMgr\SoftMgr.exe" /start=desktop
+        Run, "C:\Program Files (x86)\kingsoft\kingsoft antivirus\ksoftmgr.exe" /source:17
   } Else If (SChoice = "CalCulator") { 
     If WinExist("SpeedCrunch ahk_exe speedcrunch.exe") { 
         WinActivate, SpeedCrunch ahk_exe speedcrunch.exe
     } Else { 
         Run, %doshome%\SpeedCrunchPortable\SpeedCrunchPortable.exe
+    }
+  } Else If (SChoice = "CCleaner") { 
+    If WinExist("ahk_exe CCleaner64.exe") { 
+        WinActivate, ahk_exe CCleaner64.exe
+    } Else { 
+        Run, "C:\Program Files\CCleaner\CCleaner64.exe"
     }
   } Else If (SChoice = "FileSync") {
     If WinExist("ahk_class wxWindowNR ahk_exe FreeFileSync_x64.exe") {
