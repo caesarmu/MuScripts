@@ -6,7 +6,7 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
     WinGetTitle, rtftitle, A
     If (InStr(rtftitle,".rtf ") >0 ) {
        SendInput, {F12}
-       WinWait, ahk_class #32770
+       WinWait, ahk_class #32770,,10
        Sleep, 500
        SendInput, !t{Down 3}{Enter 2}
     } 
@@ -38,7 +38,7 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
   $^w::  ;convert to docx
     dir := LastDir()
     SendInput, !Fv>!x
-    WinWait, ahk_class #32770
+    WinWait, ahk_class #32770,,10
     Sleep, 500
     SendInput, %dir%{Enter}
     Sleep, 500

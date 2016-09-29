@@ -166,23 +166,23 @@ Close:    ; Reboot, shutdown
     SetTimer, OntopGui, off
     Gui, Destroy
   } Else If (CChoice = "Exit") {
-    MsgBox,4,, Are your sure to Exit App?
+    MsgBox,4,, Are your sure to Exit App?,30
     IfMsgBox, Yes
        ExitApp
   } Else If (CChoice = "LockWin") {
     Run, C:\Windows\System32\rundll32.exe user32.dll LockWorkStation 
   } Else If (CChoice = "Logoff") {
-    MsgBox,4,, Are your sure to Logoff?
+    MsgBox,4,, Are your sure to Logoff?,30
     IfMsgBox, Yes
       Shutdown, 0
   } Else If (CChoice = "ShutDown") {
-    MsgBox,4,, Are your sure to Shut Down?
+    MsgBox,4,, Are your sure to Shut Down?,30
     IfMsgBox, Yes
       Shutdown, 1
   } Else If (CChoice = "Reload") {
-      Reload
+    Reload
   } Else If (CChoice = "Reboot") {
-    MsgBox,4,, Are your sure to Reboot?
+    MsgBox,4,, Are your sure to Reboot?,30
     IfMsgBox, Yes
       Shutdown, 2
   }

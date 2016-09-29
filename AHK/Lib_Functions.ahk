@@ -34,12 +34,14 @@ ColorWait(cycle){
   Return %Lfound%
 }
 
-PassSSL(){
-; pass the ssl check for IE
+PassSSL(browser){
+; pass the ssl check for IE or liebao
      Sleep, 3000
      SwitchIME(0x08040804)
-     Send, {Click 600,300}
-     SendInput, {Tab 2}{Enter}  
+     If (browser = "liebao.exe" || browser = "iexplore.exe" ) {
+        Send, {Click 600,300}
+        SendInput, {Tab 2}{Enter}  
+     }
 }
 
 LastDir(){

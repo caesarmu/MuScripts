@@ -17,7 +17,7 @@ $^j::    ;  list them above
    Global pass1,pass2,pass3,pass4,pass5,pass6,pass7,pass8,pass9
    If WinExist("ahk_class AutoHotkeyGUI") { ; for AutoHotkeyGUI
        WinActivate, ahk_class AutoHotkeyGUI
-       WinWait, ahk_class AutoHotkeyGUI
+       WinWait, ahk_class AutoHotkeyGUI,,10
        SetTimer, CloseGui, off
        SetTimer, OntopGui, off
        Gui, Destroy

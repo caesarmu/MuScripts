@@ -12,7 +12,7 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
   $^r:: ; add command and arguments to Ctrl+r in Notepad2, to replace pause 
     SwitchIME(0x08040804) 
     SendInput,  ^r   
-    WinWait, ahk_class #32770
+    WinWait, ahk_class #32770,,10
     SendInput, {Home}DoIt.bat{Space 2}{End}{Space 2}self 
   Return 
   $^g:: ; grammer check one  line 
@@ -109,7 +109,7 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
     }
     npkey := SubStr(nptitle,1,5)
     WinActivate, %npkey% ahk_exe Notepad2.exe
-    WinWait, %npkey% ahk_exe Notepad2.exe
+    WinWait, %npkey% ahk_exe Notepad2.exe,,10
     SendInput,`n{Home 2}|
     Loop, %numcol%  {
           spacecol1 :=Ceil((colwidth-4)/2)

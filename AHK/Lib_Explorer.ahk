@@ -6,13 +6,13 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
   $!q:: ExitApp  ; exit app
   $^b::    ; open  115.24.3.201:1215
     Run, %doshome%\Source\Notes\Tasks_self.html
-    WinWait, Tasks for Yuewen Mu
+    WinWait, Tasks for Yuewen Mu,,10
     Run, %USERPROFILE%\AppData\Local\360Chrome\Chrome\Application\360chrome.exe 115.24.3.201:1215
-    WinWait, 115.24.3.201:1215
+    WinWait, 115.24.3.201:1215,,10
     SwitchIME(0x08040804) 
     SendInput, %pass4%{Enter}
     Run, %USERPROFILE%\AppData\Local\360Chrome\Chrome\Application\360chrome.exe 115.24.3.201:1215
-    WinWait, 115.24.3.201:1215
+    WinWait, 115.24.3.201:1215,,10
     SendInput, %pass6%{Enter}
   Return 
   $^t::    ; run SpeedCrunchPortable.exe

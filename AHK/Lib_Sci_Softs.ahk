@@ -4,25 +4,25 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
 #If WinActive("ahk_exe VESTA.exe") ;  VESTA.exe
   $!c::
     SendInput, ^+b
-    WinWait, Boundary
+    WinWait, Boundary,,10
     SendInput, {Tab 2}-1{Tab}2{Tab}-1{Tab}2{Tab 6}{Enter}
   Return
   $^i::
     SendInput,!F
     Sleep, 100
     SendInput, {Down 7}{Enter}
-    WinWait, Export Raster Image
+    WinWait, Export Raster Image,,10
     SendInput, {Enter}{Left}{Enter}
-    WinWait, Export image
+    WinWait, Export image,,10
     SendInput,{Del 5}5{Tab}{Enter}
-    WinWait,Export Graphics
+    WinWait,Export Graphics,,10
     SendInput, {Enter}
   Return
   $!s::
     WinGetTitle, lasttitle, ahk_class CabinetWClass
     SwitchIME(0x08040804) 
     SendInput, ^+s
-    WinWait, Save As ahk_class #32770
+    WinWait, Save As ahk_class #32770,,10
     Sleep, 300
     SendInput, %lasttitle%.vesta
     SendInput, {Enter}
@@ -50,12 +50,12 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
     ClipWait, 2
     If WinExist(".tex ahk_exe Notepad2.exe") { ; for notepad2
        WinActivate, .tex ahk_exe Notepad2.exe
-       WinWait, ahk_exe Notepad2.exe
+       WinWait, ahk_exe Notepad2.exe,,10
        SwitchIME(0x08040804) ; 中文(中国) 简体中文-美式键盘
        SendInput, \cite{{}%Clipboard%{}} 
     } Else If WinExist(".md ahk_exe Notepad2.exe") { ; for notepad2
        WinActivate, .md ahk_exe Notepad2.exe
-       WinWait, ahk_exe Notepad2.exe
+       WinWait, ahk_exe Notepad2.exe,,10
        ;SwitchIME(0x04090409) ; 英语(美国) 美式键盘
        SwitchIME(0x08040804) 
        StringReplace, Clipboard, Clipboard, `,,;@, All
