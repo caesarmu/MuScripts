@@ -3,16 +3,36 @@
 #NoTrayIcon
 #SingleInstance 
 #Persistent  ; Keep the script running until the user exits it.
+
+; Include files
+#Include %A_ScriptDir%\Lib_Gui_List.ahk  ; varaible DriveName needed
+#Include %A_ScriptDir%\Lib_Gui_List_Html.ahk ; variables doshome, DriveName and browser needed
+#Include %A_ScriptDir%\Lib_WPS.ahk
+#Include %A_ScriptDir%\Lib_Notepad2Mod.ahk  ; variables doshome, DriveName and Mutemp needed
+#Include %A_ScriptDir%\Lib_Sci_Softs.ahk
+#Include %A_ScriptDir%\Lib_Explorer.ahk ; variables doshome and DriveName needed
+#Include %A_ScriptDir%\Lib_Functions.ahk
+
+; Global setting and variables
 DetectHiddenWindows, On
 SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
-; Global variables
 Global doshome,passzip,Mutemp,browser,DriveName
 SplitPath, A_ScriptFullPath,,,,,DriveName
 doshome=%DriveName%\Datas\Softs\DraftTools\dosbin
 Mutemp=D:\Temp\mutemp
 browser=liebao.exe
 
+; ShortCuts and functions
 $^Space:: SendInput, #{Space}  ;SwitchIME
+^p::
+  SwitchIME(0x08040804)
+  Inputbox,inpass,PassWord,Enter the PassWord to Encrypt:,,280,140
+  If (ErrorLevel <>0 || inpass = "" || passzip = "") {   ; push close or ESC or nothing Input
+      Return
+  }
+  outpass :=EncryPass(inpass,substr(passzip,3,1))
+  Msgbox, Output PassWord: %outpass% 
+Return
 $^j::    ;  list them above
    Global pass1,pass2,pass3,pass4,pass5,pass6,pass7,pass8,pass9
    If WinExist("ahk_class AutoHotkeyGUI") { ; for AutoHotkeyGUI
@@ -81,28 +101,12 @@ $^j::    ;  list them above
   Gui,+LastFound +AlwaysOnTop +Border -Caption -SysMenu +Owner
   WinSet, TransColor, FFFFFF
 Return
-^p::
-  SwitchIME(0x08040804)
-  Inputbox,inpass,PassWord,Enter the PassWord to Encrypt:,,280,140
-  If (ErrorLevel <>0 || inpass = "" || passzip = "") {   ; push close or ESC or nothing Input
-      Return
-  }
-  outpass :=EncryPass(inpass,substr(passzip,3,1))
-  Msgbox, Output PassWord: %outpass% 
-Return
-
 OntopGui:
   Gui, +AlwaysOnTop
 Return
 CloseGui:
     Gui, Destroy
 Return
-#Include %A_ScriptDir%\Lib_Gui_List.ahk  ; varaible DriveName needed
-#Include %A_ScriptDir%\Lib_Gui_List_Html.ahk ; variables doshome, DriveName and browser needed
-#Include %A_ScriptDir%\Lib_WPS.ahk
-#Include %A_ScriptDir%\Lib_Notepad2Mod.ahk  ; variables doshome, DriveName and Mutemp needed
-#Include %A_ScriptDir%\Lib_Sci_Softs.ahk
-#Include %A_ScriptDir%\Lib_Explorer.ahk ; variables doshome and DriveName needed
-#Include %A_ScriptDir%\Lib_Functions.ahk
+
 
  
