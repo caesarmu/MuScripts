@@ -5,23 +5,23 @@
 #Persistent  ; Keep the script running until the user exits it.
 
 ; Include files
-#Include %A_ScriptDir%\Lib_Gui_List.ahk  ; varaible DriveName needed
-#Include %A_ScriptDir%\Lib_Gui_List_Html.ahk ; variables DriveName and browser needed
+#Include %A_ScriptDir%\Lib_Gui_List.ahk  ; varaible DriveName and doshome needed
+#Include %A_ScriptDir%\Lib_Gui_List_Html.ahk ; variables DriveName, doshome and browser needed
 #Include %A_ScriptDir%\Lib_WPS.ahk
-#Include %A_ScriptDir%\Lib_Notepad2Mod.ahk  ; variables DriveName and Mutemp needed
+#Include %A_ScriptDir%\Lib_Notepad2Mod.ahk  ; variables DriveName and doshome needed
 #Include %A_ScriptDir%\Lib_Sci_Softs.ahk
-#Include %A_ScriptDir%\Lib_Explorer.ahk ; variables DriveName needed
 #Include %A_ScriptDir%\Lib_Functions.ahk
 
 ; Global setting and variables
 DetectHiddenWindows, On
 SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
-Global passzip,Mutemp,browser,DriveName
+Global passzip,DriveName
 SplitPath, A_ScriptFullPath,,,,,DriveName
-Mutemp=D:\Temp\mutemp
-browser=liebao.exe
 
 ; ShortCuts and functions
+#If WinActive("ahk_exe explorer.exe")
+  $!q:: ExitApp  ; exit app
+#If 
 $^Space:: SendInput, #{Space}  ;SwitchIME
 ^p::
   SwitchIME(0x08040804)
@@ -34,6 +34,9 @@ $^Space:: SendInput, #{Space}  ;SwitchIME
 Return
 $^j::    ;  list them above
    Global pass1,pass2,pass3,pass4,pass5,pass6,pass7,pass8,pass9
+   Global browser,doshome
+   browser=liebao.exe
+   doshome=%DriveName%\Datas\Softs\DraftTools\dosbin
    If WinExist("ahk_class AutoHotkeyGUI") { ; for AutoHotkeyGUI
        WinActivate, ahk_class AutoHotkeyGUI
        WinWait, ahk_class AutoHotkeyGUI,,10
@@ -91,7 +94,7 @@ $^j::    ;  list them above
   Gui,Add,Button,x180 y1 w96 h25, Inkscape
   Gui,Add,Button,x280 y1 w66 h25, JabRef
   Gui,Add,Button,x350 y1 w46 h25, MS
-  Gui,Add, DropDownList, x400 y1 w96 h320 vSChoice gSoft Choose1, Soft|CalCulator|CCleaner|EleTable|FileSync|Frozen|Gview|ICBC|PdfEdit|QQ|Qsync|TeamView|Vesta|Vsim|Wall|WeChat
+  Gui,Add, DropDownList, x400 y1 w96 h340 vSChoice gSoft Choose1, Soft|CalCulator|CCleaner|EleTable|FileSync|Frozen|Gview|ICBC|PdfEdit|P4vasp|QQ|Qsync|TeamView|Vesta|Vsim|Wall|WeChat
   Gui,Add,Button,x500 y1 w46 h25, SSH
   Gui,Add,Button,x550 y1 w56 h25, Veusz
   Gui,Add, DropDownList,x610 y1 w96 h160 vCChoice gClose Choose1, Close|Exit|LockWin|Logoff|Reboot|Reload|ShutDown
@@ -106,6 +109,4 @@ Return
 CloseGui:
     Gui, Destroy
 Return
-
-
  

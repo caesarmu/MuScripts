@@ -1,4 +1,4 @@
-; Variable DriveName defined in the main file
+; Variable DriveName and doshome defined in the main file
 
 DetectHiddenWindows, On
 SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
@@ -13,9 +13,9 @@ Folder:    ; open Folders
   } Else If (FChoice = "Course") {
       Run, %DriveName%\Datas\Affairs\Courses\Mat_Simu_Desg\Simulate_Design.%A_YYYY%,,max
   } Else If (FChoice = "Dosbin") {
-      Run, %DriveName%\Datas\Softs\DraftTools\dosbin,,max  
+      Run, %doshome%,,max  
   } Else If (FChoice = "Draft") {
-      Run, %DriveName%\Datas\Softs\DraftTools\dosbin\Source\Notes\Drafts,,max
+      Run, %doshome%\Source\Notes\Drafts,,max
   } Else If (FChoice = "Drag") {
       Run, %DriveName%\Datas\Softs\DoNotSync\MobaXterm\MobaRoot\slash\tmp\dragdrop,,max
   } Else If (FChoice = "Manual") {
@@ -38,7 +38,7 @@ ButtonInkscape:    ; run Inkscape
     If WinExist("Inkscape ahk_exe inkscape.exe") { 
        WinActivate, Inkscape ahk_exe inkscape.exe
     } Else { 
-       Run, %DriveName%\Datas\Softs\DraftTools\dosbin\Inkscape\inkscape.exe
+       Run, %doshome%\Inkscape\inkscape.exe, %doshome%\Inkscape
     }
 Return
 ButtonJabRef:    ; run Jabref
@@ -46,7 +46,7 @@ ButtonJabRef:    ; run Jabref
     If WinExist("JabRef ahk_exe JabRef.exe") { 
        WinActivate, JabRef ahk_exe JabRef.exe
     } Else { 
-       Run, "C:\Program Files\JabRef\JabRef.exe"
+       Run, "C:\Program Files\JabRef\JabRef.exe", C:\Program Files\JabRef
     } 
 Return
 ButtonMS:    ; run Materials Studio
@@ -54,91 +54,97 @@ ButtonMS:    ; run Materials Studio
     If WinExist("MS8 - Materials Studio ahk_exe MatStudio.exe") { 
        WinActivate, MS8 - Materials Studio ahk_exe MatStudio.exe
     } Else { 
-       Run, "C:\Program Files (x86)\Accelrys\Materials Studio 8.0\bin\MatStudio.exe"
+       Run, "C:\Program Files (x86)\Accelrys\Materials Studio 8.0\bin\MatStudio.exe", C:\Program Files (x86)\Accelrys\Materials Studio 8.0\bin
     } 
 Return 
 Soft:    ; run soft not used very often
   Gui,submit,nohide
   If (SChoice = "Soft") {
-        Run, "C:\Program Files (x86)\kingsoft\kingsoft antivirus\ksoftmgr.exe" /source:17
+        Run, "C:\Program Files (x86)\kingsoft\kingsoft antivirus\ksoftmgr.exe" /source:17, C:\Program Files (x86)\kingsoft\kingsoft antivirus
   } Else If (SChoice = "CalCulator") { 
     If WinExist("SpeedCrunch ahk_exe speedcrunch.exe") { 
         WinActivate, SpeedCrunch ahk_exe speedcrunch.exe
     } Else { 
-        Run, %DriveName%\Datas\Softs\DraftTools\dosbin\SpeedCrunchPortable\SpeedCrunchPortable.exe
+        Run, %doshome%\SpeedCrunchPortable\SpeedCrunchPortable.exe, %doshome%\SpeedCrunchPortable
     }
   } Else If (SChoice = "CCleaner") { 
     If WinExist("ahk_exe CCleaner64.exe") { 
         WinActivate, ahk_exe CCleaner64.exe
     } Else { 
-        Run, "C:\Program Files\CCleaner\CCleaner64.exe"
+        Run, "C:\Program Files\CCleaner\CCleaner64.exe", C:\Program Files\CCleaner
     }
   } Else If (SChoice = "FileSync") {
     If WinExist("ahk_class wxWindowNR ahk_exe FreeFileSync_x64.exe") {
         WinActivate, ahk_class wxWindowNR ahk_exe FreeFileSync_x64.exe
       } Else { 
-        Run, %DriveName%\Datas\Softs\DoNotSync\FreeFileSync\FreeFileSync.exe
+        Run, %DriveName%\Datas\Softs\DoNotSync\FreeFileSync\FreeFileSync.exe, %DriveName%\Datas\Softs\DoNotSync\FreeFileSync
       }
   } Else If (SChoice = "Gview") {
     If WinExist("GaussView 5.0.9 ahk_exe gview.exe") {
         WinActivate, GaussView 5.0.9 ahk_exe gview.exe
       } Else { 
-        Run, C:\G09W\gview.exe
+        Run, C:\G09W\gview.exe, C:\G09W
       }
   } Else If (SChoice = "ICBC") {
     If WinExist("ahk_exe ICBCEBankAssist.exe") {
         WinActivate, ahk_exe ICBCEBankAssist.exe
       } Else { 
-        Run, "C:\Program Files\ICBCEbankTools\ICBCSetupIntegration\ICBCEBankAssist.exe"
+        Run, "C:\Program Files\ICBCEbankTools\ICBCSetupIntegration\ICBCEBankAssist.exe", C:\Program Files\ICBCEbankTools\ICBCSetupIntegration
       }
   } Else If (SChoice = "Frozen") {
       If WinExist("Warcraft III ahk_class Warcraft III") {
         WinActivate, Warcraft III ahk_class Warcraft III
       } Else { 
-        Run, "%DriveName%\Datas\Softs\Warcraft III 1.24\Frozen Throne.exe"
+        Run, "%DriveName%\Datas\Softs\Warcraft III 1.24\Frozen Throne.exe", %DriveName%\Datas\Softs\Warcraft III 1.24
         Gui, Destroy
       } 
   } Else If (SChoice = "QQ") {
     If WinExist("QQ ahk_exe QQ.exe") {
         WinActivate,QQ ahk_exe QQ.exe
       } Else { 
-        Run, "C:\Program Files (x86)\Tencent\QQLite\Bin\QQScLauncher.exe"
+        Run, "C:\Program Files (x86)\Tencent\QQLite\Bin\QQScLauncher.exe", C:\Program Files (x86)\Tencent\QQLite\Bin
       } 
   } Else If (SChoice = "Qsync") {
-    Run, "C:\Program Files (x86)\QNAP\Qsync\Qsync.exe" 
+    Run, "C:\Program Files (x86)\QNAP\Qsync\Qsync.exe", C:\Program Files (x86)\QNAP\Qsync
   } Else If (SChoice = "EleTable") {
     If WinExist("Periodic Table ahk_exe ADPT.exe") {
         WinActivate,Periodic Table ahk_exe ADPT.exe
       } Else { 
-        Run, "C:\Program Files (x86)\freshney.org\Periodic Table\ADPT.exe"
+        Run, "C:\Program Files (x86)\freshney.org\Periodic Table\ADPT.exe", C:\Program Files (x86)\freshney.org\Periodic Table
       } 
   } Else If (SChoice = "PdfEdit") {
     If WinExist("ahk_class GlassWndClass-GlassWindowClass-2") {
         WinActivate, ahk_class GlassWndClass-GlassWindowClass-2
       } Else {
-        Run, "C:\Program Files (x86)\PDFsam Basic\pdfsam.exe"
+        Run, "C:\Program Files (x86)\PDFsam Basic\pdfsam.exe", C:\Program Files (x86)\PDFsam Basic
+      } 
+  } Else If (SChoice = "P4vasp") {
+    If WinExist("ahk_exe p4v.exe") {
+        WinActivate, ahk_exe p4v.exe
+      } Else { 
+        Run, %doshome%\p4vasp\p4v.exe,%doshome%\p4vasp
       } 
   } Else If (SChoice = "TeamView") {
-    Run, "C:\Program Files (x86)\TeamViewer\TeamViewer.exe"
+    Run, "C:\Program Files (x86)\TeamViewer\TeamViewer.exe", C:\Program Files (x86)\TeamViewer
   } Else If (SChoice = "Vesta") {
     If WinExist("ahk_class wxWindowNR") {
         WinActivate, ahk_class wxWindowNR
       } Else { 
-        Run, %DriveName%\Datas\Softs\DraftTools\dosbin\VESTA64\VESTA.exe
+        Run, %doshome%\VESTA64\VESTA.exe,%doshome%\VESTA64
       } 
   } Else If (SChoice = "Vsim") {
     If WinExist("Command panel ahk_exe v_sim.exe") {
         WinActivate, Command panel ahk_exe v_sim.exe
       } Else { 
-        Run, %DriveName%\Datas\Softs\DraftTools\dosbin\v_sim\bin\v_sim.exe
+        Run, %doshome%\v_sim\bin\v_sim.exe,%doshome%\v_sim\bin
       } 
   } Else If (SChoice = "Wall") {
-        Run, %DriveName%\Datas\Softs\DraftTools\dosbin\Source\Notes\Wall.exe.lnk
+        Run, %doshome%\Source\Notes\Wall.exe.lnk
   } Else If (SChoice = "WeChat") {
     If WinExist("ahk_exe WeChat.exe") {
         WinActivate, ahk_exe WeChat.exe
       } Else { 
-        Run, "C:\Program Files (x86)\Tencent\WeChat\WeChat.exe"
+        Run, "C:\Program Files (x86)\Tencent\WeChat\WeChat.exe", C:\Program Files (x86)\Tencent\WeChat
       } 
   }
   GuiControl, Choose, SChoice, 1
@@ -148,7 +154,7 @@ ButtonSSH:    ; run ssh MobaXterm
     If WinExist("ahk_class TMobaXtermForm") {
        WinActivate, ahk_class TMobaXtermForm
     } Else { 
-       Run, %DriveName%\Datas\Softs\DoNotSync\MobaXterm\MobaXterm_Personal.exe
+       Run, %DriveName%\Datas\Softs\DoNotSync\MobaXterm\MobaXterm_Personal.exe, %DriveName%\Datas\Softs\DoNotSync\MobaXterm
     }
 Return 
 ButtonVeusz:    ; run plot soft Veusz
@@ -156,7 +162,7 @@ ButtonVeusz:    ; run plot soft Veusz
     If WinExist("Veusz ahk_exe veusz.exe") {
        WinActivate,Veusz ahk_exe veusz.exe
     } Else { 
-       Run, "C:\Program Files (x86)\Veusz\veusz.exe"
+       Run, "C:\Program Files (x86)\Veusz\veusz.exe", C:\Program Files (x86)\Veusz
     }  
 Return
 Close:    ; Reboot, shutdown

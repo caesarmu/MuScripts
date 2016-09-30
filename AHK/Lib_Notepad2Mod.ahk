@@ -1,4 +1,4 @@
-;variables DriveName and Mutemp defined in main file
+;variables DriveName defined in main file
 
 DetectHiddenWindows, On
 SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
@@ -18,7 +18,7 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
   $^g:: ; grammer check one  line 
     WinGetTitle, nptitle, A
     If (InStr(nptitle,".md ") >0 || InStr(nptitle,".tex ") >0) {
-      ingram=%Mutemp%\SpellCheckTmp.dat
+      ingram=%doshome%\LanguageTool\SpellCheckTmp.dat
       If FileExist(ingram) {
          FileDelete, %ingram%
       }
@@ -33,7 +33,7 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
         Clipboard=%SelStr% ; cut Selected
       }  
       FileAppend, %Clipboard%, %ingram%
-      Run, %ComSpec% /c java -Xmx512m -jar %DriveName%\Datas\Softs\DraftTools\dosbin\LanguageTool\languagetool-commandline.jar -l en-US %ingram%  && pause
+      Run, %ComSpec% /c java -Xmx512m -jar %doshome%\LanguageTool\languagetool-commandline.jar -l en-US %ingram%  && pause
     }
   Return 
   $^s::
@@ -131,6 +131,6 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
      }
     SendInput,`n{Home 2}:Table: New Table `n
   Return
-  $^i:: SendInput,{!}{[}$\alpha${]}(%DriveName%\Datas\Softs\DraftTools\dosbin\models\logo.png "png"){{}width=50`%{}}
-  $^h:: Run, %DriveName%\Datas\Softs\DraftTools\dosbin\Source\Notes\Symbols4Tex_math.html
+  $^i:: SendInput,{!}{[}$\alpha${]}(%doshome%\models\logo.png "png"){{}width=50`%{}}
+  $^h:: Run, %doshome%\Source\Notes\Symbols4Tex_math.html
 #If
