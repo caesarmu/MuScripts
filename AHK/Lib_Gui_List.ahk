@@ -13,9 +13,9 @@ Folder:    ; open Folders
   } Else If (FChoice = "Course") {
       Run, %DriveName%\Datas\Affairs\Courses\Mat_Simu_Desg\Simulate_Design.%A_YYYY%,,max
   } Else If (FChoice = "Dosbin") {
-      Run, %doshome%,,max  
+      Run, %DriveName%\Datas\Softs\DraftTools\dosbin,,max  
   } Else If (FChoice = "Draft") {
-      Run, %doshome%\Source\Notes\Drafts,,max
+      Run, %DriveName%\Datas\Softs\DraftTools\dosbin\Source\Notes\Drafts,,max
   } Else If (FChoice = "Drag") {
       Run, %DriveName%\Datas\Softs\DoNotSync\MobaXterm\MobaRoot\slash\tmp\dragdrop,,max
   } Else If (FChoice = "Manual") {
@@ -38,7 +38,7 @@ ButtonInkscape:    ; run Inkscape
     If WinExist("Inkscape ahk_exe inkscape.exe") { 
        WinActivate, Inkscape ahk_exe inkscape.exe
     } Else { 
-       Run, %doshome%\Inkscape\inkscape.exe
+       Run, %DriveName%\Datas\Softs\DraftTools\dosbin\Inkscape\inkscape.exe
     }
 Return
 ButtonJabRef:    ; run Jabref
@@ -65,7 +65,7 @@ Soft:    ; run soft not used very often
     If WinExist("SpeedCrunch ahk_exe speedcrunch.exe") { 
         WinActivate, SpeedCrunch ahk_exe speedcrunch.exe
     } Else { 
-        Run, %doshome%\SpeedCrunchPortable\SpeedCrunchPortable.exe
+        Run, %DriveName%\Datas\Softs\DraftTools\dosbin\SpeedCrunchPortable\SpeedCrunchPortable.exe
     }
   } Else If (SChoice = "CCleaner") { 
     If WinExist("ahk_exe CCleaner64.exe") { 
@@ -124,16 +124,16 @@ Soft:    ; run soft not used very often
     If WinExist("ahk_class wxWindowNR") {
         WinActivate, ahk_class wxWindowNR
       } Else { 
-        Run, %doshome%\VESTA64\VESTA.exe
+        Run, %DriveName%\Datas\Softs\DraftTools\dosbin\VESTA64\VESTA.exe
       } 
   } Else If (SChoice = "Vsim") {
     If WinExist("Command panel ahk_exe v_sim.exe") {
         WinActivate, Command panel ahk_exe v_sim.exe
       } Else { 
-        Run, %doshome%\v_sim\bin\v_sim.exe
+        Run, %DriveName%\Datas\Softs\DraftTools\dosbin\v_sim\bin\v_sim.exe
       } 
   } Else If (SChoice = "Wall") {
-        Run, %doshome%\Source\Notes\Wall.exe.lnk
+        Run, %DriveName%\Datas\Softs\DraftTools\dosbin\Source\Notes\Wall.exe.lnk
   } Else If (SChoice = "WeChat") {
     If WinExist("ahk_exe WeChat.exe") {
         WinActivate, ahk_exe WeChat.exe

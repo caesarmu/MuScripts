@@ -6,19 +6,18 @@
 
 ; Include files
 #Include %A_ScriptDir%\Lib_Gui_List.ahk  ; varaible DriveName needed
-#Include %A_ScriptDir%\Lib_Gui_List_Html.ahk ; variables doshome, DriveName and browser needed
+#Include %A_ScriptDir%\Lib_Gui_List_Html.ahk ; variables DriveName and browser needed
 #Include %A_ScriptDir%\Lib_WPS.ahk
-#Include %A_ScriptDir%\Lib_Notepad2Mod.ahk  ; variables doshome, DriveName and Mutemp needed
+#Include %A_ScriptDir%\Lib_Notepad2Mod.ahk  ; variables DriveName and Mutemp needed
 #Include %A_ScriptDir%\Lib_Sci_Softs.ahk
-#Include %A_ScriptDir%\Lib_Explorer.ahk ; variables doshome and DriveName needed
+#Include %A_ScriptDir%\Lib_Explorer.ahk ; variables DriveName needed
 #Include %A_ScriptDir%\Lib_Functions.ahk
 
 ; Global setting and variables
 DetectHiddenWindows, On
 SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
-Global doshome,passzip,Mutemp,browser,DriveName
+Global passzip,Mutemp,browser,DriveName
 SplitPath, A_ScriptFullPath,,,,,DriveName
-doshome=%DriveName%\Datas\Softs\DraftTools\dosbin
 Mutemp=D:\Temp\mutemp
 browser=liebao.exe
 
