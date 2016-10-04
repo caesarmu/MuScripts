@@ -75,3 +75,49 @@ EncryPass(inpass,charshift){
   Return %outpass%
 }
 
+; retrive results of cmd, modified from  https://autohotkey.com/board/topic/15455-stdouttovar/page-7 (nfl)
+StdoutToVar_CreateProcess(sCmd, bStream="", sDir="", sInput="") {
+   bStream=   ; not implemented
+   DllCall("CreatePipe","Ptr*",hStdInRd,"Ptr*",hStdInWr,"Uint",0,"Uint",0)
+   DllCall("CreatePipe","Ptr*",hStdOutRd,"Ptr*",hStdOutWr,"Uint",0,"Uint",0)
+   DllCall("SetHandleInformation","Ptr",hStdInRd,"Uint",1,"Uint",1)
+   DllCall("SetHandleInformation","Ptr",hStdOutWr,"Uint",1,"Uint",1)
+   If ( A_PtrSize = "4" ) {
+      VarSetCapacity(pi, 16, 0)
+      sisize:=VarSetCapacity(si,68,0)
+      NumPut(sisize,    si,  0, "UInt")
+      NumPut(0x100,     si, 44, "UInt")
+      NumPut(hStdInRd , si, 56, "Ptr")
+      NumPut(hStdOutWr, si, 60, "Ptr")
+      NumPut(hStdOutWr, si, 64, "Ptr")
+    } Else If (A_PtrSize = "8" ) {
+      VarSetCapacity(pi, 24, 0)
+      sisize:=VarSetCapacity(si,96,0)
+      NumPut(sisize,    si,  0, "UInt")
+      NumPut(0x100,     si, 60, "UInt")
+      NumPut(hStdInRd , si, 80, "Ptr")
+      NumPut(hStdOutWr, si, 88, "Ptr")
+      NumPut(hStdOutWr, si, 96, "Ptr")
+    }
+    DllCall("CreateProcess", "Uint", 0, "Ptr", &sCmd, "Uint", 0, "Uint", 0, "Int", True, "Uint", 0x08000000, "Uint", 0, "Ptr", sDir ? &sDir : 0, "Ptr", &si, "Ptr", &pi)
+    DllCall("CloseHandle","Ptr",NumGet(pi,0))
+    DllCall("CloseHandle","Ptr",NumGet(pi,A_PtrSize))
+    DllCall("CloseHandle","Ptr",hStdOutWr)
+    DllCall("CloseHandle","Ptr",hStdInRd)
+    If ( sInput <> "" ) {
+       FileOpen(hStdInWr, "h", "UTF-8").Write(sInput)
+    }
+    DllCall("CloseHandle","Ptr",hStdInWr)
+    VarSetCapacity(sTemp,4095)
+    nSize:=0
+    loop {
+         result:=DllCall("Kernel32.dll\ReadFile", "Uint", hStdOutRd,  "Ptr", &sTemp, "Uint", 4095,"UintP", nSize,"Uint", 0)
+         If (result = "0") {
+            break
+         } else {
+           sOutput:= sOutput . StrGet(&sTemp,nSize,"UTF-8")
+         }
+    }
+    DllCall("CloseHandle","Ptr",hStdOutRd)
+    Return,sOutput
+}
