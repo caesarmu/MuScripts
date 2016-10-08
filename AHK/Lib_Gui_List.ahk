@@ -136,14 +136,9 @@ Soft:    ; run soft not used very often
     If WinExist("Command panel ahk_exe v_sim.exe") {
         WinActivate, Command panel ahk_exe v_sim.exe
       } Else { 
-        Run, %doshome%\v_sim\bin\v_sim.exe,%doshome%\v_sim\bin
+        Run, %doshome%\v_sim\bin\v_sim.exe,%doshome%\v_sim\bin,Minimize
         WinWait, ahk_exe v_sim.exe
-        Sleep, 500
-        If (WinExist("ahk_class ConsoleWindowClass")) {
-            WinActivate, ahk_class ConsoleWindowClass
-            WinWait, ahk_class ConsoleWindowClass
-            WinHide
-        }        
+        WinHide, ahk_class ConsoleWindowClass
       } 
   } Else If (SChoice = "Wall") {
         Run, %doshome%\Source\Notes\Wall.exe.lnk
