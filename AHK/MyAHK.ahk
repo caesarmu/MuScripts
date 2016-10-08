@@ -47,14 +47,14 @@ $^j::    ;  list them above
     } 
   SwitchIME(0x08040804)
   If (FileExist("..\..\autohotkey\InWords.dat")) {
-    Run, %ComSpec% /c del /q ..\..\autohotkey\InWords.dat
+    Run, %ComSpec% /c del /q ..\..\autohotkey\InWords.dat,,Hide
   } 
   If (FileExist("..\..\autohotkey\InWords.zip")) { 
     Inputbox,passzip,PassWord,Enter the PassWord for zip file:,,280,140
     If (ErrorLevel <>0 || passzip = "") {   ; push close or ESC or nothing Input
       Return
     } 
-    Run, "C:\Program Files\7-Zip\7z.exe" x ..\..\autohotkey\InWords.zip -o..\..\autohotkey\ -p%passzip% 
+    Run, "C:\Program Files\7-Zip\7z.exe" x ..\..\autohotkey\InWords.zip -o..\..\autohotkey\ -p%passzip%,,Hide 
     Loop, 7 {
       If (FileExist("..\..\autohotkey\InWords.dat")) {
         FileGetSize, filesize, ..\..\autohotkey\InWords.dat
@@ -75,7 +75,7 @@ $^j::    ;  list them above
       }
     }
     MyPass :=StrSplit(InWords,"#")
-    Run, %ComSpec% /c del /q ..\..\autohotkey\InWords.dat
+    Run, %ComSpec% /c del /q ..\..\autohotkey\InWords.dat,,Hide
     pass1 :=EncryPass(MyPass[1],-substr(passzip,3,1)) 
     pass2 :=EncryPass(MyPass[2],-substr(passzip,3,1))
     pass3 :=EncryPass(MyPass[3],-substr(passzip,3,1))
