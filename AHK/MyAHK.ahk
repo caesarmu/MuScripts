@@ -88,16 +88,16 @@ $^j::    ;  list them above
   }
   SetTimer, CloseGui, 36000000
   SetTimer, OntopGui, 5000
-  Gui, Font, S11 Cred Bold, Verdana 
+  Gui, Font, S11 Cred Bold, Microsoft Yahei
   Gui,Add, DropDownList, x0 y1 w86 h320 vFChoice gFolder Choose1, Folder|Affairs|Course|Dosbin|Draft|Drag|Manual|Paper|Project|Qsync|Report|Temp
-  Gui,Add, DropDownList, x90 y1 w86 h440 vHChoice gHtml Choose1, Html|163mail|Amd10|GitHub|Gmail|Gpu3|InoRSS|JD|JH|LiveMail|NAS|Neu6|PMMP|Portal|QQMail|Rinse|SxuMail|SxuVPN|Taobao|TH2|VASP|WeChat
+  Gui,Add, DropDownList, x90 y1 w86 h460 vHChoice gHtml Choose1, Html|163mail|Amd10|GitHub|Gmail|Gpu3|InoRSS|JD|JH|LiveMail|NAS|Neu6|PMMP|Portal|QQMail|Rinse|SxuMail|SxuVPN|Taobao|TH2|VASP|WeChat
   Gui,Add,Button,x180 y1 w96 h25, Inkscape
   Gui,Add,Button,x280 y1 w66 h25, JabRef
   Gui,Add,Button,x350 y1 w46 h25, MS
-  Gui,Add, DropDownList, x400 y1 w96 h340 vSChoice gSoft Choose1, Soft|CalCulator|CCleaner|EleTable|FileSync|Frozen|Gview|ICBC|PdfEdit|P4vasp|QQ|Qsync|TeamView|Vesta|Vsim|Wall|WeChat
+  Gui,Add, DropDownList, x400 y1 w96 h360 vSChoice gSoft Choose1, Soft|CalCulator|CCleaner|EleTable|FileSync|Frozen|Gview|ICBC|PdfEdit|P4vasp|QQ|Qsync|TeamView|Vesta|Vsim|Wall|WeChat
   Gui,Add,Button,x500 y1 w46 h25, SSH
   Gui,Add,Button,x550 y1 w56 h25, Veusz
-  Gui,Add, DropDownList,x610 y1 w96 h160 vCChoice gClose Choose1, Close|Exit|LockWin|Logoff|Reboot|Reload|ShutDown
+  Gui,Add, DropDownList,x610 y1 w96 h180 vCChoice gClose Choose1, Close|Exit|LockWin|Logoff|Reboot|Reload|ShutDown
   Gui,Show,xcenter y1 w700 h0,ShortCut Menu
   Gui, Color, FFFFFF
   Gui,+LastFound +AlwaysOnTop +Border -Caption -SysMenu +Owner
