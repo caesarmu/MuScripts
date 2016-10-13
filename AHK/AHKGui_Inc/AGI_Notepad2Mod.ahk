@@ -30,12 +30,15 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
        Gui, Tool:Add, Button, x440 y105 w200 h30 gCompiler, % "SELF"
        Gui, Tool:Add, Button, x20 y140 w200 h30 gCompiler, % "MATH"
        Gui, Tool:Add, Button, x230 y140 w200 h30 gCompiler, % "OMATH"
-       Gui, Tool:Add, Button, x440 y140 w200 h30 gCompiler, % "DeFAULT"
-       Gui, Tool:Add, Button, x20 y175 w200 h30 gCompiler, % "SLIDE"
-       Gui, Tool:Add, Button, x230 y175 w200 h30 gCompiler, % "PDF"
-       Gui, Tool:Add, Button, x440 y175 w200 h30 gCompiler, % "CLOSE"
-       Gui, Tool:Add, Button, x125 y210 w200 h30 gCompiler, % "PUSH"
-       Gui, Tool:Add, Button, x335 y210 w200 h30 gCompiler, % "PULL"
+       Gui, Tool:Add, Button, x440 y140 w200 h30 gCompiler, % "SLIDE"
+       Gui, Tool:Add, Button, x20 y175 w200 h30 gCompiler,  % "IMG2LINK"
+       Gui, Tool:Add, Button, x230 y175 w200 h30 gCompiler, % "GRAMMER"
+       Gui, Tool:Add, Button, x440 y175 w200 h30 gCompiler, %  "CITE"
+       Gui, Tool:Add, Button, x20 y210 w200 h30 gCompiler,  % "PUSH"
+       Gui, Tool:Add, Button, x230 y210 w200 h30 gCompiler, % "PULL"
+       Gui, Tool:Add, Button, x440 y210 w200 h30 gCompiler, % "PDF"
+       Gui, Tool:Add, Button, x125 y245 w200 h30 gCompiler, % "DEFAULT"
+       Gui, Tool:Add, Button, x335 y245 w200 h30 gCompiler, % "CLOSE"
        Gui, Tool:Show, AutoSize Center,Complier Panel for %Fext%
        Gui, Tool:Color, FFFFFF
        Gui, Tool:+LastFound +AlwaysOnTop +Border -SysMenu
