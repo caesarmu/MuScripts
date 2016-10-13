@@ -33,7 +33,7 @@ Folder:    ; open Folders
   } 
   GuiControl, Menu:Choose, FChoice, 1  
 Return
-ButtonInkscape:    ; run Inkscape
+Inkscape:    ; run Inkscape
     Gui,Menu:Submit,nohide
     If WinExist("Inkscape ahk_exe inkscape.exe") { 
        WinActivate
@@ -41,7 +41,7 @@ ButtonInkscape:    ; run Inkscape
        Run, %DosHome%\Inkscape\inkscape.exe, %DosHome%\Inkscape
     }
 Return
-ButtonJabRef:    ; run Jabref
+JabRef:    ; run Jabref
     Gui,Menu:Submit,nohide 
     If WinExist("JabRef ahk_exe JabRef.exe") { 
        WinActivate
@@ -49,7 +49,7 @@ ButtonJabRef:    ; run Jabref
        Run, "C:\Program Files\JabRef\JabRef.exe", C:\Program Files\JabRef
     } 
 Return
-ButtonMS:    ; run Materials Studio
+MS:    ; run Materials Studio
     Gui,Menu:Submit,nohide
     If WinExist("MS8 - Materials Studio ahk_exe MatStudio.exe") { 
        WinActivate 
@@ -151,7 +151,7 @@ Soft:    ; run soft not used very often
   }
   GuiControl, Menu:Choose, SChoice, 1
 Return
-ButtonSSH:    ; run ssh MobaXterm
+SSH:    ; run ssh MobaXterm
     Gui,Menu:Submit,nohide
     If WinExist("ahk_class TMobaXtermForm") {
        WinActivate
@@ -159,7 +159,7 @@ ButtonSSH:    ; run ssh MobaXterm
        Run, %DriveName%\Datas\Softs\DoNotSync\MobaXterm\MobaXterm_Personal.exe, %DriveName%\Datas\Softs\DoNotSync\MobaXterm
     }
 Return 
-ButtonVeusz:    ; run plot soft Veusz
+Veusz:    ; run plot soft Veusz
     Gui,Menu:Submit,nohide
     If WinExist("Veusz ahk_exe veusz.exe") {
        WinActivate

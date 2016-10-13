@@ -6,7 +6,8 @@
 ; To use #If...#If rather than If ..{...} to make some hotkeys only active for some window
 ; == always case sensitive while =,<> and != depend on  StringCaseSense on/off
 ; So I recommend: == and ! = for number and spacing compare and ~= and InStr for string compare
-; = rather than := for string with quote
+; = rather than := for string with quote and space
+; Global varaible may not work outside #If ....#If
 
 ; Include files
 #Include %A_ScriptDir%\AHKGui_Inc\AGI_Libs.ahk
@@ -19,9 +20,9 @@
 ; Global setting and variables
 DetectHiddenWindows, On
 SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
-Global passzip,DriveName,DosHome
+Global passzip,DriveName
 SplitPath, A_ScriptFullPath,,,,,DriveName
-DosHome := DriveName . "\Datas\Softs\DraftTools\dosbin"
+
 
 ; ShortCuts and functions
 #If WinActive("ahk_exe explorer.exe")
@@ -45,8 +46,9 @@ $^Space:: SendInput, #{Space}  ;SwitchIME
 Return
 $^j::    ;  list them above
    Global pass1,pass2,pass3,pass4,pass5,pass6,pass7,pass8,pass9
-   Global browser
+   Global browser,DosHome
    browser := "liebao.exe"
+   DosHome := DriveName . "\Datas\Softs\DraftTools\dosbin"
    If WinExist("ahk_class AutoHotkeyGUI") { ; for AutoHotkeyGUI
        WinActivate ; Activate the window it found
        WinWaitActive, ahk_class AutoHotkeyGUI,,10
@@ -101,12 +103,12 @@ $^j::    ;  list them above
   Gui, Menu:Font, S11 Cred Bold, Microsoft Yahei
   Gui, Menu:Add, DropDownList, x0 y1 w86 h320 vFChoice gFolder Choose1, Folder|Affairs|Course|Dosbin|Draft|Drag|Manual|Paper|Project|Qsync|Report|Temp
   Gui, Menu:Add, DropDownList, x90 y1 w86 h460 vHChoice gHtml Choose1, Html|163mail|Amd10|GitHub|Gmail|Gpu3|InoRSS|JD|JH|LiveMail|NAS|Neu6|PMMP|Portal|QQMail|Rinse|SxuMail|SxuVPN|Taobao|TH2|VASP|WeChat
-  Gui, Menu:Add, Button, x180 y1 w96 h25, Inkscape
-  Gui, Menu:Add, Button, x280 y1 w66 h25, JabRef
-  Gui, Menu:Add, Button, x350 y1 w46 h25, MS
+  Gui, Menu:Add, Button, x180 y1 w96 h25 gInkscape, Inkscape
+  Gui, Menu:Add, Button, x280 y1 w66 h25 gJabRef, JabRef
+  Gui, Menu:Add, Button, x350 y1 w46 h25 gMS, MS
   Gui, Menu:Add, DropDownList, x400 y1 w96 h360 vSChoice gSoft Choose1, Soft|CalCulator|CCleaner|EleTable|FileSync|Frozen|Gview|ICBC|PdfEdit|P4vasp|QQ|Qsync|TeamView|Vesta|Vsim|Wall|WeChat
-  Gui, Menu:Add, Button, x500 y1 w46 h25, SSH
-  Gui, Menu:Add, Button, x550 y1 w56 h25, Veusz
+  Gui, Menu:Add, Button, x500 y1 w46 h25 gSSH, SSH
+  Gui, Menu:Add, Button, x550 y1 w56 h25 gVeusz, Veusz
   Gui, Menu:Add, DropDownList, x610 y1 w96 h180 vCChoice gClose Choose1, Close|Exit|LockWin|Logoff|Reboot|Reload|ShutDown
   Gui, Menu:Show, xcenter y1 w700 h0,ShortCut Menu
   Gui, Menu:Color, FFFFFF
