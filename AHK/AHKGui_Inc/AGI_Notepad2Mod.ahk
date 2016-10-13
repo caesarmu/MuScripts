@@ -34,6 +34,8 @@ SetTitleMatchMode Regex ;可以使用正则表达式对标题进行匹配
        Gui, Tool:Add, Button, x20 y175 w200 h30 gCompiler, % "SLIDE"
        Gui, Tool:Add, Button, x230 y175 w200 h30 gCompiler, % "PDF"
        Gui, Tool:Add, Button, x440 y175 w200 h30 gCompiler, % "CLOSE"
+       Gui, Tool:Add, Button, x125 y210 w200 h30 gCompiler, % "PUSH"
+       Gui, Tool:Add, Button, x335 y210 w200 h30 gCompiler, % "PULL"
        Gui, Tool:Show, AutoSize Center,Complier Panel for %Fext%
        Gui, Tool:Color, FFFFFF
        Gui, Tool:+LastFound +AlwaysOnTop +Border -SysMenu
