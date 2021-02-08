@@ -1,6 +1,8 @@
-% Some Scripts by YW Mu  
-% Yuewen Mu  
-% May. 14, 2016  
+---
+title: Some Scripts by YW Mu  
+author: Yuewen Mu  
+data: May. 14, 2016  
+---
 
 # MuScripts
 
