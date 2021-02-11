@@ -1,7 +1,10 @@
 @ECHO OFF
+REM ibrav2cell.exe, libgfortran-4.dll, msmpi.dll and libquadmath-0.dll needed
+SET BinHome=%~dp0
 SET qein=%1
 SET qeinbase=%~n1
 SET qeindir=%~dp1
+SET PATH=%PATH%;%BinHome%
 ECHO  ^&SYSTEM > cell.in
 goawk.exe < %qein% "/ibrav/" >> cell.in
 goawk.exe < %qein% "/celldm/" >> cell.in
