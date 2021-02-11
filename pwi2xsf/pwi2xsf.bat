@@ -4,7 +4,7 @@ SET BinHome=%~dp0
 SET qein=%1
 SET qeinbase=%~n1
 SET qeindir=%~dp1
-SET PATH=%PATH%;%BinHome%
+SET PATH=%PATH%;%BinHome%\bravlib
 ECHO  ^&SYSTEM > cell.in
 goawk.exe < %qein% "/ibrav/" >> cell.in
 goawk.exe < %qein% "/celldm/" >> cell.in
