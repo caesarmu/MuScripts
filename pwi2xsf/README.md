@@ -6,7 +6,7 @@ Convert Quantum Espresso (pwscf) Input file to xsf format on Windows
 * **ibrav2cell.exe (and libgfortran-4.dll, msmpi.dll and libquadmath-0.dll)** in  qe.zip from [advancesoftcorp
 /
 espresso](https://github.com/advancesoftcorp/espresso/releases)
-* Put these files in a subdirectory bravlib.
+* Put goawk.exe, libgfortran-4.dll, msmpi.dll and libquadmath-0.dll in a subdirectory `bravlib`.
 
 ## Usage
 * Make sure that the coordinates of atoms are cartesian.
