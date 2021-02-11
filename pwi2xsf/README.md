@@ -3,7 +3,7 @@ Convert Quantum Espresso (pwscf) Input file to xsf format on Windows
 
 ## Requirements
 * Windows version **gawk** or **[GoAWK](https://github.com/benhoyt/goawk)**
-* **ibrav2cell.exe** in  qe.zip from [advancesoftcorp
+* **ibrav2cell.exe (and libgfortran-4.dll, msmpi.dll and libquadmath-0.dll)** in  qe.zip from [advancesoftcorp
 /
 espresso](https://github.com/advancesoftcorp/espresso/releases)
 * Add the directories containing gawk/goawk and ibrav2cell.exe to `PATH` of Windows
