@@ -17,7 +17,7 @@ goawk.exe < %qein%  -F = "BEGIN{IGNORECASE=1}/^ *cosab *=/{print \"celldm(6)=\",
 ECHO / >>cell.in
 ECHO CRYSTAL >%qeindir%%qeinbase%.xsf
 ECHO PRIMVEC >>%qeindir%%qeinbase%.xsf
-ibrav2cell.exe <cell.in |goawk.exe "(out==1 && id <3){id=id+1;printf \"%%14.8f%%14.8f%%14.8f\n\", $(1)*0.529,$(2)*0.529,$(3)*0.529}/Unit cell/{out=1}" >>%qeindir%%qeinbase%.xsf
+ibrav2cell.exe <cell.in |goawk.exe "(out==1 && id <3){id=id+1;printf \"%%14.8f%%14.8f%%14.8f\n\", $(1)*0.529*unit,$(2)*0.529*unit,$(3)*0.529*unit}/Unit cell in units of alat/{out=1;unit=$(NF-1)}" >>%qeindir%%qeinbase%.xsf
 ECHO PRIMCOORD >>%qeindir%%qeinbase%.xsf
 goawk.exe < %qein%  -F = "BEGIN{IGNORECASE=1}/^ *nat *=/{print $NF ,1}" >>%qeindir%%qeinbase%.xsf
 goawk.exe < %qein% "(NF>3 && length($1)<3  && $1~/^[A-Za-z]+$/ && $2~/^[0-9.-]+$/ && $3~/^[0-9.-]+$/ && $4 ~/^[0-9.-]+$/){printf \" %%3s%%14.8f%%14.8f%%14.8f%%3d%%3d%%3d\n\",$1,$2,$3,$4,length($5),length($6),length($7)}" >>%qeindir%%qeinbase%.xsf
