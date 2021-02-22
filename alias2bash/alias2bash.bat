@@ -2,7 +2,7 @@
 
 REM HELP ==========================DOSKEY CMDs=================================
 REM Unix-like commands 
-IF "x%1" == "x" (ECHO "Unix-like commands: ls, lsd, mkdir, mv, cat, pwd, cp, rm, diff, grep, which,lns, find (find a.dat), md5sum , base64" && PAUSE && EXIT )
+
 @DOSKEY ls=dir /B $*
 @DOSKEY lsd=tree /F
 @DOSKEY mkdir=md $*
@@ -18,10 +18,10 @@ IF "x%1" == "x" (ECHO "Unix-like commands: ls, lsd, mkdir, mv, cat, pwd, cp, rm,
 @DOSKEY find=dir $* /s /b 
 @DOSKEY md5sum=certutil -hashfile $1 MD5
 @DOSKEY base64=del /q %DriveName%\Temp\base64.txt $t certutil -encode $1 %DriveName%\Temp\base64.txt $t type %DriveName%\Temp\base64.txt
-EXIT
+IF "x%1" == "x" (ECHO "Unix-like commands: ls, lsd, mkdir, mv, cat, pwd, cp, rm, diff, grep, which,lns, find (find a.dat), md5sum , base64" && PAUSE)
+ 
 
 
-
-
+ 
  
 
