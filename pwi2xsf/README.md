@@ -2,7 +2,7 @@
 Convert Quantum Espresso (pwscf) input file without "CELL_PARAMETERS" to xsf format on Windows. If the input file contains "CELL_PARAMETERS", you can use [openbabel](https://github.com/openbabel/openbabel) to covert it, such as `obabel.exe -ipwscf  pwscf.in -ocif -Oout.cif`. 
 
 ## Requirements
-* Windows version **[GoAWK](https://github.com/benhoyt/goawk)**
+* Windows version **gawk.exe** or **[goawk.exe](https://github.com/benhoyt/goawk, renamed to `gawk.exe`)**, and add the directory containing gawk.exe to `PATH` of Windows
 * **ibrav2cell.exe (and libgfortran-4.dll, msmpi.dll and libquadmath-0.dll)** in  qe.zip from [advancesoftcorp
 /
 espresso](https://github.com/advancesoftcorp/espresso/releases)
