@@ -2,7 +2,7 @@
 Convert Gaussian Input file to xyz format on Windows
 
 ## Requirements
-* Windows version **awk** or **[GoAWK](https://github.com/benhoyt/goawk)**, and add the directory containing gawk/goawk to `PATH` of Windows
+* Windows version **gawk.exe** or **[goawk.exe](https://github.com/benhoyt/goawk, renamed to `gawk.exe`)**, and add the directory containing gawk.exe to `PATH` of Windows
 
 ## Usage
 * `gjf2xyz  g09.gjf`, then you will get g09.gjfxyz.
