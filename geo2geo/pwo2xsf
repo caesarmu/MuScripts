@@ -1,0 +1,113 @@
+#!/bin/sh
+#"------------------------------------------";    
+#"--------------  qe otput to XSF  ---------";
+#"--------   Written by Yuewen Mu ----------";
+#"------------------------------------------";
+
+## export AWKPATH=${soft_root}/libadd/awklib
+if [ "$#" == "0" ] ; then
+   qeout=$(ls  -t *opt*.out 2>/dev/null|head -1)
+   outxsf="POSCAR"
+elif [ "$#" == "1" ] ; then
+   qeout=$1
+   outxsf="POSCAR"
+else
+   qeout=$1
+   outxsf=$2
+fi
+[[ -z "$qeout" || ! -s  "$qeout" ]] && echo "QE outfile not exist!" && exit 1
+
+awk -v qeout="$qeout"  -v outxsf=$outxsf '
+BEGIN{
+asymbol="H He Li Be B C N O F Ne Na Mg Al Si P S Cl Ar K Ca Sc Ti V Cr Mn Fe Co Ni Cu Zn Ga Ge As Se Br Kr Rb Sr Y Zr Nb Mo Tc Ru Rh Pd Ag Cd In Sn Sb Te I Xe Cs Ba La Ce Pr Nd Pm Sm Eu Gd Tb Dy Ho Er Tm Yb Lu Hf Ta W Re Os Ir Pt Au Hg Tl Pb Bi Po At Rn Fr Ra Ac Th Pa U Np Pu Am Cm Bk Cf Es Fm Md No Lr"
+amass="1.007 4.002 6.941 9.012 10.811 12.017 14.006 15.999 18.998 20.179 22.989 24.305 26.981 28.085 30.973 32.065 35.453 39.948 39.098 40.078 44.955 47.867 50.941 51.996 54.938 55.845 58.933 58.693 63.546 65.409 69.723 72.640 74.921 78.960 79.904 83.798 85.467 87.620 88.905 91.224 92.906 95.940 97.907 101.070 102.905 106.420 107.868 112.411 114.818 118.710 121.760 127.600 126.904 131.293 132.905 137.327 138.905 140.116 140.907 144.242 145.000 150.360 151.964 157.250 158.925 162.500 164.930 167.259 168.934 173.040 174.967 178.490 180.947 183.840 186.207 190.230 192.217 195.084 196.966 200.590 204.383 207.200 208.980"
+nsymbol=split(asymbol,mysymbol);
+## nsymbol=103;nmass=83(Bi);
+nmass=split(amass,mymass);
+for (i=1;i<=nmass;i++){
+    snum[mysymbol[i]]=i;
+    massele[int(mymass[i])]=mysymbol[i];
+    elemass[mysymbol[i]]=mymass[i];}
+    
+bohr=0.529177249;
+alat=1.0;
+coord="car"
+while((getline<qeout) != NULL){
+if ($0~/number of atom.*cell/){
+  natom=$NF;
+}else if ($0~/^ *nat *=/){
+  split($0,linelist,"=");
+  natom=linelist[2];
+}else if ($0~/lattice parameter.*alat.*a.u./){
+  alat=$(NF-1);
+}else if($0~/number of atomic types/){
+  nty=$NF;
+}else if($0~/lattice parameter/){
+  sf=$(NF-1);
+}else if($0 ~/crystal axes:.*coord.*alat/ ) {
+  for (i=1; i<=3; i++){
+    getline<qeout;
+    for(j=1;j<=3;j++){latt[i,j]=alat*bohr*$(j+3);}} 
+}else if($0 ~/CELL_PARAMETERS.*alat/ ) {
+  gsub(/)/,"",$NF);
+  alat=$NF;
+  for (i=1; i<=3; i++){
+    getline<qeout;
+    for(j=1;j<=3;j++){latt[i,j]=alat*bohr*$j;}} 
+}else if($0 ~/CELL_PARAMETERS.*angstrom/ ) {
+  for (i=1; i<=3; i++){
+    getline<qeout;
+    for(j=1;j<=3;j++){latt[i,j]=$j;}} 
+}else if($0 ~/site.*atom.*positions.*cryst/ ) {
+  coord="direct";
+  for(i=1;i<=natom;i++){
+    getline<qeout;
+    sele[i]=$2;
+    dxyz[i,1]=$7;
+    dxyz[i,2]=$8;
+    dxyz[i,3]=$9;}
+}else if($0 ~/ATOMIC_POSITIONS.*cryst/ ) {
+  coord="direct";
+  for(i=1;i<=natom;i++){
+    getline<qeout;
+    sele[i]=$1;
+    dxyz[i,1]=$2;
+    dxyz[i,2]=$3;
+    dxyz[i,3]=$4;}
+}else if($0 ~/ATOMIC_POSITIONS.*angstrom/ ) {
+  for(i=1;i<=natom;i++){
+    getline<qeout;
+    sele[i]=$1;
+    cxyz[i,1]=$2;
+    cxyz[i,2]=$3;
+    cxyz[i,3]=$4;}
+}else if($0 ~/site.*atom.*positions.*alat.*units/ ) {
+  for(i=1;i<=natom;i++){
+    getline<qeout;
+    sele[i]=$2;
+    cxyz[i,1]=$7*alat*bohr;
+    cxyz[i,2]=$8*alat*bohr;
+    cxyz[i,3]=$9*alat*bohr;}
+}}
+
+if(coord ~ /diret/){
+   for(i=1;i<=natom;i++){
+      cxyz[i,1]=dxyz[i,1]*latt[1,1]+dxyz[i,2]*latt[2,1]+dxyz[i,3]*latt[3,1];
+      cxyz[i,2]=dxyz[i,1]*latt[1,2]+dxyz[i,2]*latt[2,2]+dxyz[i,3]*latt[3,2];
+      cxyz[i,3]=dxyz[i,1]*latt[1,3]+dxyz[i,2]*latt[2,3]+dxyz[i,3]*latt[3,3];
+   }
+}
+    
+printf "CRYSTAL\n" >outxsf ;
+printf "PRIMVEC\n" >outxsf;
+for (i=1; i<=3; i++){
+printf "%17.10f%17.10f%17.10f\n", latt[i,1],latt[i,2],latt[i,3] >outxsf;}
+printf "PRIMCOORD\n" >outxsf;
+printf "%12d%12d\n",natom,"1" >outxsf;
+for (i=1;i<=natom;i++){
+printf "%-5d%15.10f%15.10f%15.10f\n",snum[sele[i]],cxyz[i,1],cxyz[i,2],cxyz[i,3]  >outxsf;
+}
+exit
+}'
+echo "$outxsf generated!"
+exit 0
